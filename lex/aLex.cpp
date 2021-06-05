@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include<iostream>
+#include<string.h>
 #include "aLex.h"
 using namespace std;
 
@@ -12,7 +13,12 @@ int main(void){
 
     ntoken=yylex();
     while(ntoken){
-        cout<<ntoken<<endl;
+        string txt = "";
+        int sz = strlen(yytext);
+        for(int i=0; i<sz; i++){
+            txt+=yytext[i];
+        }
+        cout<<txt<<" : "<<ntoken<<endl;
         ntoken = yylex();
     }
     return 0;

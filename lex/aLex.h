@@ -4,10 +4,11 @@
 #define NULLCHAR 204
 #define CHARACTER 205
 #define STRING 206
-#define MONEY 207
-#define DATE 208
-#define FLOAT 209
-#define DOUBLE 210
+#define STRINGNOQUOTES 207
+#define MONEY 208
+#define DATE 209
+#define FLOAT 210
+#define DOUBLE 211
 
 #define ALTER 10
 #define ALTERTABLE 11
@@ -40,7 +41,9 @@
 #define WHERE 38
 #define WITH 39
 
-#define DROP 40
+#define INSERTINTO 40
+#define VALUES 41
+#define DROP 42
 
 #define COLON 101
 #define SEMICOLON 102
@@ -52,3 +55,4 @@
 #define CLOSEBRACKET 108
 #define OPENBRACE 109
 #define CLOSEBRACE 110
+#define COMMA 111
