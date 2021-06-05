@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include<iostream>
-#include "myscanner.h"
+#include "aLex.h"
 using namespace std;
+
 extern int yylex();
 extern int yylineno;
 extern char* yytext;
@@ -11,7 +12,6 @@ int main(void){
 
     ntoken=yylex();
     while(ntoken){
-        //printf("%d\n", ntoken);
         cout<<ntoken<<endl;
         ntoken = yylex();
     }
