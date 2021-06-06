@@ -3,6 +3,7 @@
 #include <string.h>
 #include <assert.h>
 #include <vector>
+#include <fstream>
 #include "aLex.h"
 using namespace std;
 
@@ -11,10 +12,11 @@ extern FILE* yyset_in(FILE* file);
 extern int yylineno;
 extern char* yytext;
 
-bool test(){
-    return true;
-}
 
+/**lexxerCmd function is for developing
+ * Takes input from cmd line and prints out parsing details
+ * 
+ */
 void lexxerCmd(){
     int ntoken, vtoken;
     ntoken=yylex();
@@ -30,8 +32,16 @@ void lexxerCmd(){
     }
 }
 
-vector<int> lexxerFile(string str){
+/**lexxer function adds input to a file then parses that file
+ * Input: SQL query as string
+ * Output: Tokenized query in a vector
+ */
+vector<int> lexxer(string str){
     vector<int> vec;
+    ofstream myfile;
+    myfile.open("test.txt");
+    myfile << str;
+    myfile.close();
     int ntoken, vtoken;
     FILE *fd;
     fd = fopen("test.txt", "r");
@@ -43,14 +53,26 @@ vector<int> lexxerFile(string str){
     }
     return vec;
 }
+/**runTests function runs tests
+ *
+ */ 
+void runTests(){
+    cout<<"Running tests"<<endl;
+    vector<int> vec;
+    vec = lexxer("INSERT INTO table(col1, col2) VALUES ('hey', 24);");
+    vector<int> testvec = {40, 207, 105, 207, 111, 207, 106, 207, 105, 206, 111, 201, 106, 102};
+    assert(vec==testvec);
+    cout<<"All tests passed"<<endl;
+}
 
 int main(void){
-    string testStr = "test";
-    vector<int> vec;
-    
-    vec = lexxerFile(testStr);//Use this on input from file
+    //string testStr = "test";//Change this to whatever you want to test
+    //vector<int> vec;
+    //vec = lexxer(testStr);//Use this on input from file
 
-    lexxerCmd();//Use this on input from cmd line and to see details printed
+    runTests();//Run tests
+
+    //lexxerCmd();//Use this on input from cmd line and to see details printed
 
     
     return 0;
