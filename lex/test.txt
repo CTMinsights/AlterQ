@@ -1,1 +1,1 @@
-CREATE TABLE table1(col1 integer, col_2_two varchar );
+INSERT INTO table(col1, col2) VALUES ('hey', 24);

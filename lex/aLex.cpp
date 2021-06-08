@@ -27,7 +27,7 @@ void lexxerCmd(){
         for(int i=0; i<sz; i++){
             txt+=yytext[i];
         }
-        cout<<txt<<" : "<<ntoken<<endl;
+        cout<<ntoken<<" : "<<txt<<endl;
         ntoken = yylex();
     }
 }
@@ -58,12 +58,19 @@ vector<int> lexxer(string str){
  */ 
 void runTests(){
     cout<<"Running tests"<<endl;
-
-    vector<int> testvec = {40, 207, 105, 207, 111, 207, 106, 207, 105, 206, 111, 201, 106, 102};
-    assert(lexxer("INSERT INTO table(col1, col2) VALUES ('hey', 24);")==testvec);
-
-    testvec = {18, 207, 105, 207, 313, 111, 207, 331, 106, 102};
+    
+    //CREATE TABLE TESTS
+    vector<int> testvec = {18, 207, 105, 207, 313, 111, 207, 331, 106, 102};
     assert(lexxer("CREATE TABLE table1(col1 integer, col_2_two varchar );")==testvec);
+    testvec = {18, 207, 105, 207, 344, 43, 111, 207, 331, 105, 201, 106, 45, 46, 111, 207, 347, 46, 106, 102};
+    assert(lexxer("CREATE TABLE table_1(user_id serial PRIMARY KEY, username VARCHAR(50) UNIQUE NOT NULL, created_on TIMESTAMP NOT NULL);")==testvec);
+    testvec = {18, 207, 105, 207, 313, 46, 111, 207, 313, 46, 111, 43, 105, 207, 111, 207, 106, 111, 49, 105, 207, 106, 48, 207, 105, 207, 106, 111, 49, 105, 207, 106, 48, 207, 105, 207, 106, 106, 102};
+    assert(lexxer("CREATE TABLE table_1(user_id INT NOT NULL, role_id INT NOT NULL, PRIMARY KEY (user_id, role_id), FOREIGN KEY (role_id) REFERENCES roles (role_id), FOREIGN KEY (user_id) REFERENCES accounts (user_id));")==testvec);
+    testvec = {18, 50, 76, 207, 13, 207, 73, 102};
+    assert(lexxer("CREATE TABLE IF NOT EXISTS table_1 AS table_2 WITH NO DATA;")==testvec);
+    
+    testvec = {40, 207, 105, 207, 111, 207, 106, 207, 105, 206, 111, 201, 106, 102};
+    assert(lexxer("INSERT INTO table(col1, col2) VALUES ('hey', 24);")==testvec);
 
     cout<<"All tests passed"<<endl;
 }
@@ -73,9 +80,9 @@ int main(void){
     //vector<int> vec;
     //vec = lexxer(testStr);//Use this on input from file
 
-    //runTests();//Run tests
+    runTests();//Run tests
 
-    lexxerCmd();//Use this on input from cmd line and to see details printed
+    //lexxerCmd();//Use this on input from cmd line and to see details printed
 
     
     return 0;

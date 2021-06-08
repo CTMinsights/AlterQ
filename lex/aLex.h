@@ -97,12 +97,11 @@
 #define PRIMARYKEY 43
 #define BY 44
 #define UNIQUE 45
-#define NOTNULL 46
-#define NULL 47
+#define ISNOTNULL 46
+#define ISNULL 47
 #define REFERENCES 48
 #define FOREIGNKEY 49 
 #define IF 50
-#define CASE 51
 #define END 52
 #define WHEN 53
 #define ELSE 54
@@ -124,6 +123,24 @@
 #define TO 70
 #define RENAMECOL 71
 #define VIEW 72
+#define WITHNODATA 73
+#define WITHDATA 74
+#define DATA 75
+#define NOTEXISTS 76
+#define EXISTS 77
+#define OFFSET 78
+#define ROW 79
+#define ONLY 80
+#define FIRST 81
+#define FETCH 82
+#define CUBE 83
+#define ROLLUP 84
+#define EXTRACT 85 //add this eventually https://www.postgresqltutorial.com/postgresql-extract/
+#define CROSSJOIN 86
+#define NATURALJOIN 87
+#define TRUNCATE 88
+#define ANY 89
+#define ALL 90
 
 // Punctuation
 #define COLON 101

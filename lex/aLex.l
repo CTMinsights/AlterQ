@@ -29,6 +29,7 @@
 "MIN"               return MIN;
 "ORDER BY"          return ORDERBY;
 "OR"                return OR;
+"FULL OUTER JOIN"   return FULLOUTERJOIN;
 "OUTER JOIN"        return OUTERJOIN;
 "ROUND"             return ROUND;
 "SELECT DISTINCT"   return SELECTDISTINCT;
@@ -47,7 +48,6 @@
 "UNIQUE"            return UNIQUE;
 "REFERENCES"        return REFERENCES;
 "IF"                return IF;
-"CASE"              return CASE;
 "END"               return END;
 "WHEN"              return WHEN;
 "ELSE"              return ELSE;
@@ -58,16 +58,31 @@
 "DEFAULT"           return DEFAULT;
 "CAST"              return CAST;
 "GENERATED"         return GENERATED;
-"KEY"               return KEY;
 "FULL JOIN"         return FULLJOIN;
-"FULL OUTER JOIN"   return FULLOUTERJOIN;
 "LEFT JOIN"         return LEFTJOIN;
 "RIGHT JOIN"        return RIGHTJOIN;
-"INNER JOIN"        return INNERJOIN;
-"OUTER JOIN"        return OUTERJOIN;
 "RENAME COLUMN"     return RENAMECOL;
 "RENAME"            return RENAME;
 "COLUMN"            return COLUMN;
+"WITH NO DATA"      return WITHNODATA;
+"WITH DATA"         return WITHDATA;
+"WITH"              return WITH;
+"DATA"              return DATA;
+"NOT EXISTS"        return NOTEXISTS;
+"EXISTS"            return EXISTS;
+"OFFSET"            return OFFSET;
+"ROW"               return ROW;
+"ONLY"              return ONLY;
+"FIRST"             return FIRST;
+"FETCH"             return FETCH;
+"CUBE"              return CUBE;
+"ROLLUP"            return ROLLUP;
+"EXTRACT"           return EXTRACT;
+"CROSS JOIN"        return CROSSJOIN;
+"NATURAL JOIN"      return NATURALJOIN;
+"TRUNCATE TABLE"    return TRUNCATE;
+"ANY"               return ANY;
+"ALL"               return ALL;
 
 "text"|"TEXT"                                   return TEXT;
 "int"|"integer"|"int4"|"INT"|"INTEGER"|"INT4"   return INT_T;
@@ -82,7 +97,7 @@
 "box"|"BOX"                                     return BOX;
 "bytea"|"BYTEA"                                 return BYTEA;
 "character"|"char"|"CHARACTER"|"CHAR"           return CHAR;
-"character varying"|"varchar" return VARCHAR_T;
+"character varying"|"varchar"|"VARCHAR"|"CHARACTER VARYING" return VARCHAR_T;
 "cidr"                  return CIDR;
 "circle"                return CIRCLE;
 "date"                  return DATE;
@@ -105,7 +120,7 @@
 "real"|"float4"         return REAL;
 "time"                  return TIMENOZONE;//Need to add zone/nozone and other [] stuff
 "time2"|"timetz"        return TIMEWITHZONE;//Need to add zone/nozone and other [] stuff
-"timestamp"             return TIMESTAMPNOZONE;//Need to add zone/nozone and other [] stuff
+"timestamp"|"TIMESTAMP"             return TIMESTAMPNOZONE;//Need to add zone/nozone and other [] stuff
 "timestamp2"|"timestamptz" return TIMESTAMPWITHZONE;//Need to add zone/nozone and other [] stuff
 "tsquery"               return TSQUERY;
 "tsvector"              return TSVECTOR;
