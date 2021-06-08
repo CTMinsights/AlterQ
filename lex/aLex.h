@@ -73,10 +73,8 @@
 #define DELETE 19
 #define GROUPBY 20
 #define HAVING 21
-#define INNERJOIN 22
+#define INNERJOIN 22 //https://www.postgresqltutorial.com/postgresql-joins/
 #define INSERT 23
-#define ISNULL 24
-#define ISNOTNULL 25
 #define LIKE 26
 #define LIMIT 27
 #define MAX 28
@@ -95,6 +93,37 @@
 #define INSERTINTO 40
 #define VALUES 41
 #define DROP 42
+
+#define PRIMARYKEY 43
+#define BY 44
+#define UNIQUE 45
+#define NOTNULL 46
+#define NULL 47
+#define REFERENCES 48
+#define FOREIGNKEY 49 
+#define IF 50
+#define CASE 51
+#define END 52
+#define WHEN 53
+#define ELSE 54
+#define THEN 55
+#define COALESCE 56
+#define NULLIF 57
+#define DEFAULT 58
+#define CURRENTTIMESTAMP 59
+#define CAST 60
+#define GENERATED 61
+#define KEY 62
+#define LEFTJOIN 63
+#define RIGHTJOIN 64
+#define FULLJOIN 65
+#define FULLOUTERJOIN 66
+#define ON 67
+#define RENAME 68
+#define COLUMN 69
+#define TO 70
+#define RENAMECOL 71
+#define VIEW 72
 
 // Punctuation
 #define COLON 101

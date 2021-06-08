@@ -58,13 +58,13 @@ vector<int> lexxer(string str){
  */ 
 void runTests(){
     cout<<"Running tests"<<endl;
-    vector<int> vec;
-    vec = lexxer("INSERT INTO table(col1, col2) VALUES ('hey', 24);");
+
     vector<int> testvec = {40, 207, 105, 207, 111, 207, 106, 207, 105, 206, 111, 201, 106, 102};
-    assert(vec==testvec);
-    vec = lexxer("CREATE TABLE table1(col1 int);");
-    testvec = {40, 207, 105, 207, 111, 207, 106, 207, 105, 206, 111, 201, 106, 102};
-    assert(vec==testvec);
+    assert(lexxer("INSERT INTO table(col1, col2) VALUES ('hey', 24);")==testvec);
+
+    testvec = {18, 207, 105, 207, 313, 111, 207, 331, 106, 102};
+    assert(lexxer("CREATE TABLE table1(col1 integer, col_2_two varchar );")==testvec);
+
     cout<<"All tests passed"<<endl;
 }
 
