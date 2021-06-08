@@ -62,6 +62,9 @@ void runTests(){
     vec = lexxer("INSERT INTO table(col1, col2) VALUES ('hey', 24);");
     vector<int> testvec = {40, 207, 105, 207, 111, 207, 106, 207, 105, 206, 111, 201, 106, 102};
     assert(vec==testvec);
+    vec = lexxer("CREATE TABLE table1(col1 int);");
+    testvec = {40, 207, 105, 207, 111, 207, 106, 207, 105, 206, 111, 201, 106, 102};
+    assert(vec==testvec);
     cout<<"All tests passed"<<endl;
 }
 
@@ -70,9 +73,9 @@ int main(void){
     //vector<int> vec;
     //vec = lexxer(testStr);//Use this on input from file
 
-    runTests();//Run tests
+    //runTests();//Run tests
 
-    //lexxerCmd();//Use this on input from cmd line and to see details printed
+    lexxerCmd();//Use this on input from cmd line and to see details printed
 
     
     return 0;

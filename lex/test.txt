@@ -1,1 +1,1 @@
-INSERT INTO table(col1, col2) VALUES ('hey', 24);
+CREATE TABLE table1(col1 int);
