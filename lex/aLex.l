@@ -1,5 +1,7 @@
 %{
     #include "aLex.h"
+    //#include "aLex.tab.h"
+    //int yylex();
 %}
 
 %option outfile="aLexxer.c"
@@ -150,9 +152,9 @@
 "xml"                   return XML;
                     
 [$][0-9]*[.]?[0-9]*     return MONEY;  //example, not actually how we will parse money
-[0-9]+                  return (yyleng<=3 ? SMALLINT : yyleng<=8 ? INTEGER : BIGINT);//Check integer sizes (need to check for leading 0s)//Maybe change numbers to numbers. So do yylval=atoi(yytext); return NUM;
-['][a-zA-Z_ -]*[0-9]*[']  return (yyleng==2 ? NULLCHAR : yyleng==3 ? CHARACTER : STRING);//Check string sizes
-["][a-zA-Z_ -]*[0-9]*["]  return (yyleng==2 ? NULLCHAR : yyleng==3 ? CHARACTER : STRING);//Check string sizes
+[0-9]+                  return (yyleng<=3 ? SMALLINT : yyleng<=8 ? INTEGER : BIGINT);//Check integer sizes (need to check for leading 0s)//Maybe change numbers to numbers. So do yylval=atoi(yytext); return NUM;think i need .y bison file for this
+['][a-zA-Z_ - 0-9]*[']  return (yyleng==2 ? NULLCHAR : yyleng==3 ? CHARACTER : STRING);//Check string sizes
+["][a-zA-Z_ - 0-9]*["]  return (yyleng==2 ? NULLCHAR : yyleng==3 ? CHARACTER : STRING);//Check string sizes
 [0-1]?[0-9][/][0-3]?[0-9][/][0-9][0-9][0-9][0-9] return DATE; //prolly a better way to check for 4 numbers
 [0-9]+[.][0-9]+         return (yyleng<=8 ? FLOAT : DOUBLE);//need to check for leading 0s
 :                       return COLON;
