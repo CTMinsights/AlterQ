@@ -6,21 +6,23 @@
 
 %%
 "quit"              return 0;
-"ALTER"             return ALTER;
 "ALTER TABLE"       return ALTERTABLE;
+"ALTER"             return ALTER;
 "AND"               return AND;
 "AS"                return AS;
 "AVG"               return AVG;
 "BETWEEN"           return BETWEEN;
 "CASE"              return CASE;
-"COUNT"             return COUNT;
+"COUNT"             return COUNT;//check ()
 "CREATE TABLE"      return CREATETABLE;
-"DELETE"            return DELETE;
+"CREATE"            return CREATE;
+"DELETE FROM"       return DELETE;
 "GROUP BY"          return GROUPBY;
 "HAVING"            return HAVING;
 "INNER JOIN"        return INNERJOIN;
 "INSERT"            return INSERT;
 "INSERT INTO"       return INSERTINTO;
+"INTO"              return INTO;
 "NULL"              return ISNULL;
 "NOT NULL"          return ISNOTNULL;
 "LIKE"              return LIKE;
@@ -37,7 +39,7 @@
 "SUM"               return SUM;
 "UPDATE"            return UPDATE;
 "WHERE"             return WHERE;
-"DROP"              return DROP;
+"DROP TABLE"        return DROPTABLE;
 "TEXT"              return TEXT;
 "true"|"TRUE"       return TRUE_B;
 "false"|"FALSE"     return FALSE_B;
@@ -83,6 +85,25 @@
 "TRUNCATE TABLE"    return TRUNCATE;
 "ANY"               return ANY;
 "ALL"               return ALL;
+"SET"               return SET;
+"RETURNING"         return RETURNING;
+"FROM"              return FROM;
+"REPLACE"           return REPLACE;
+"VIEW"              return VIEW;
+"SEQUENCE"          return SEQUENCE;
+"NEXTVAL"           return NEXTVAL;
+"CURRVAL"           return CURRVAL;
+"ILIKE"             return ILIKE;
+"LENGTH"            return LENGTH;
+"FUNCTION"          return FUNCTION;
+"PERFORM"           return PERFORM;
+"DECLARE"           return DECLARE;
+"COPY"              return COPY;
+"PG_DATABASE"       return PGDB;
+"BEGIN"             return BEGIN_T;
+"ADD"               return ADD;
+"DROP"              return DROP;
+"COMMENT"           return COMMENT;
 
 "text"|"TEXT"                                   return TEXT;
 "int"|"integer"|"int4"|"INT"|"INTEGER"|"INT4"   return INT_T;
@@ -120,7 +141,7 @@
 "real"|"float4"         return REAL;
 "time"                  return TIMENOZONE;//Need to add zone/nozone and other [] stuff
 "time2"|"timetz"        return TIMEWITHZONE;//Need to add zone/nozone and other [] stuff
-"timestamp"|"TIMESTAMP"             return TIMESTAMPNOZONE;//Need to add zone/nozone and other [] stuff
+"timestamp"|"TIMESTAMP"    return TIMESTAMPNOZONE;//Need to add zone/nozone and other [] stuff
 "timestamp2"|"timestamptz" return TIMESTAMPWITHZONE;//Need to add zone/nozone and other [] stuff
 "tsquery"               return TSQUERY;
 "tsvector"              return TSVECTOR;
@@ -130,12 +151,21 @@
 
 [$][0-9]*[.]?[0-9]*     return MONEY;  //example, not actually how we will parse money
 [0-9]+                  return (yyleng<=3 ? SMALLINT : yyleng<=8 ? INTEGER : BIGINT);//Check integer sizes (need to check for leading 0s)
-['][a-zA-Z_]*[0-9]*[']  return (yyleng==2 ? NULLCHAR : yyleng==3 ? CHARACTER : STRING);//Check string sizes
-["][a-zA-Z_]*[0-9]*["]  return (yyleng==2 ? NULLCHAR : yyleng==3 ? CHARACTER : STRING);//Check string sizes
+['][a-zA-Z_ -]*[0-9]*[']  return (yyleng==2 ? NULLCHAR : yyleng==3 ? CHARACTER : STRING);//Check string sizes
+["][a-zA-Z_ -]*[0-9]*["]  return (yyleng==2 ? NULLCHAR : yyleng==3 ? CHARACTER : STRING);//Check string sizes
 [0-1]?[0-9][/][0-3]?[0-9][/][0-9][0-9][0-9][0-9] return DATE; //prolly a better way to check for 4 numbers
 [0-9]+[.][0-9]+         return (yyleng<=8 ? FLOAT : DOUBLE);//need to check for leading 0s
 :                       return COLON;
 ;                       return SEMICOLON;
+"<>"                      return NOTEQUALS;
+"<="                     return LESSEQUAL;
+">="                      return GREATEQUAL;
+"<"                     return LESSER;
+">"                       return GREATER;
+=                       return EQUALS;
+"+"                     return PLUS;
+"-"                     return MINUS;
+"*"                     return AST;
 "("                     return OPENPAREN;
 ")"                     return CLOSEPAREN;
 "["                     return OPENBRACKET;
@@ -143,7 +173,7 @@
 "{"                     return OPENBRACE;
 "}"                     return CLOSEBRACE;
 ","                     return COMMA;
-[a-zA-Z][a-zA-Z0-9_]+   return STRINGNOQUOTES;
+[a-zA-Z][a-zA-Z0-9_-]+   return STRINGNOQUOTES;//Need to add more accepted chars
 [a-zA-Z]                return CHARACTER;
 [ \t\n]                 ;
 .                       printf("unexpected character\n");

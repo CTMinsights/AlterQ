@@ -1,1 +1,0 @@
-INSERT INTO table(col1, col2) VALUES ('hey', 24);

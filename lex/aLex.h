@@ -58,8 +58,6 @@
 #define MACADDR8 354
 #define PGSNAP 355
 
-//gotta add varchar and all other types
-
 // Query Types/Keywords
 #define ALTER 10
 #define ALTERTABLE 11
@@ -92,7 +90,7 @@
 
 #define INSERTINTO 40
 #define VALUES 41
-#define DROP 42
+#define DROPTABLE 42
 
 #define PRIMARYKEY 43
 #define BY 44
@@ -141,6 +139,26 @@
 #define TRUNCATE 88
 #define ANY 89
 #define ALL 90
+#define SET 91
+#define RETURNING 92
+#define FROM 93
+#define CREATE 94
+#define REPLACE 95
+#define SEQUENCE 96
+#define NEXTVAL 97
+#define CURRVAL 98
+#define ILIKE 99
+#define LENGTH 100
+#define FUNCTION 1001 //FIX THIS NUMBERING FROM HERE DOWN
+#define PERFORM 1002
+#define DECLARE 1003
+#define COPY 1004
+#define PGDB 1005
+#define BEGIN_T 1006
+#define ADD 1007
+#define DROP 1008
+#define INTO 1009
+#define COMMENT 1010
 
 // Punctuation
 #define COLON 101
@@ -154,3 +172,12 @@
 #define OPENBRACE 109
 #define CLOSEBRACE 110
 #define COMMA 111
+#define EQUALS 112
+#define NOTEQUALS 113
+#define LESSEQUAL 114
+#define GREATEQUAL 115
+#define LESSER 116
+#define GREATER 117
+#define PLUS 118
+#define MINUS 119
+#define AST 120

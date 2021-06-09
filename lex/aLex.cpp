@@ -58,8 +58,8 @@ vector<int> lexxer(string str){
  */ 
 void runTests(){
     cout<<"Running tests"<<endl;
-    
-    //CREATE TABLE TESTS
+    //tests based off: https://www.enterprisedb.com/postgres-tutorials/postgresql-query-introduction-explanation-and-50-examples
+    //CREATE TABLE tests
     vector<int> testvec = {18, 207, 105, 207, 313, 111, 207, 331, 106, 102};
     assert(lexxer("CREATE TABLE table1(col1 integer, col_2_two varchar );")==testvec);
     testvec = {18, 207, 105, 207, 344, 43, 111, 207, 331, 105, 201, 106, 45, 46, 111, 207, 347, 46, 106, 102};
@@ -69,8 +69,41 @@ void runTests(){
     testvec = {18, 50, 76, 207, 13, 207, 73, 102};
     assert(lexxer("CREATE TABLE IF NOT EXISTS table_1 AS table_2 WITH NO DATA;")==testvec);
     
+    //INSERT INTO tests
     testvec = {40, 207, 105, 207, 111, 207, 106, 207, 105, 206, 111, 201, 106, 102};
     assert(lexxer("INSERT INTO table(col1, col2) VALUES ('hey', 24);")==testvec);
+
+    //UPDATE tests
+    testvec = {37, 207, 91, 207, 112, 206, 111, 207, 112, 201, 38, 207, 112, 206, 102};
+    assert(lexxer("UPDATE dummy_table SET name='GHI',age=54 WHERE address='location-D';")==testvec);
+    
+    //SELECT tests
+    testvec = {34, 120, 93, 207, 38, 207, 112, 206, 102};
+    assert(lexxer("SELECT * FROM table1 WHERE name='Alex';")==testvec);
+    
+    //SELECT DISTINCT tests
+    testvec = {35, 207, 93, 207, 31, 201, 102};
+    assert(lexxer("SELECT DISTINCT age FROM table1 ORDER BY 1;")==testvec);
+    
+    //DELETE FROM tests
+    testvec = {19, 207, 38, 207, 113, 201, 102};
+    assert(lexxer("DELETE FROM table1 WHERE age<>12;")==testvec);
+    
+    //TRUNCATE tests
+    testvec = {88, 207, 102};
+    assert(lexxer("TRUNCATE TABLE table1;")==testvec);
+    
+    //DROP TABLE tests
+    testvec = {42, 50, 77, 207, 102};
+    assert(lexxer("DROP TABLE IF EXISTS table1;")==testvec);
+    
+    //CREATE VIEW tests
+    testvec = {94, 30, 95, 72, 207, 13, 34, 207, 93, 207, 102};
+    assert(lexxer("CREATE OR REPLACE VIEW vi AS SELECT age FROM table1;")==testvec);
+
+    //ALTER TABLE tests
+    testvec = {11, 207, 1007, 207, 313, 102};
+    assert(lexxer("ALTER TABLE table1 ADD col1 int;")==testvec);
 
     cout<<"All tests passed"<<endl;
 }
