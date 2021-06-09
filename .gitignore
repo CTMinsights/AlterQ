@@ -1,3 +1,8 @@
 aLex
 aLexxer.c
 test.txt
+aLex.output
+aLex.tab.c
+aLex.tab.h
+
+aLex.y
