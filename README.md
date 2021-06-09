@@ -1,5 +1,9 @@
 SQL Parser README
 
+Dependencies:
+    sudo apt-get install flex
+    cmake
+
 To first run cmake project in src:
     1. Enter build directory
     2. Run command 'cmake ..' //This creates the Makefile
