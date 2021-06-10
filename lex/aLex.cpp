@@ -1,13 +1,14 @@
 #include <stdio.h>
 #include <iostream>
-#include <string.h>
+#include <string>
 #include <assert.h>
 #include <vector>
 #include <fstream>
 #include "aLex.h"
+#include "strucTest.h"
 using namespace std;
 
-extern int yylex();
+int yylex();
 extern FILE* yyset_in(FILE* file);
 extern int yylineno;
 extern char* yytext;
@@ -18,10 +19,11 @@ extern char* yytext;
  * 
  */
 void lexxerCmd(){
-    int ntoken, vtoken;
+    int ntoken;
     ntoken=yylex();
-    int i=0;
     while(ntoken){
+        foo();
+        cout<<LESSEQUAL<<endl;
         string txt = "";
         int sz = strlen(yytext);//strlen might not get correct length(needs \0)
         for(int i=0; i<sz; i++){
@@ -42,7 +44,7 @@ vector<int> lexxer(string str){
     myfile.open("test.txt");
     myfile << str;
     myfile.close();
-    int ntoken, vtoken;
+    int ntoken;
     FILE *fd;
     fd = fopen("test.txt", "r");
     yyset_in(fd);
@@ -113,8 +115,8 @@ int main(void){
     //vector<int> vec;
     //vec = lexxer(testStr);//Use this on input from file
 
-    runTests();//Run tests
-
+    //runTests();//Run tests
+    foo();
     //lexxerCmd();//Use this on input from cmd line and to see details printed
 
     

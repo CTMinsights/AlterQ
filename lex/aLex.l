@@ -1,5 +1,7 @@
 %{
     #include "aLex.h"
+    //#include "aLex.tab.h"
+    //int yylex();
 %}
 
 %option outfile="aLexxer.c"
@@ -108,7 +110,7 @@
 "text"|"TEXT"                                   return TEXT;
 "int"|"integer"|"int4"|"INT"|"INTEGER"|"INT4"   return INT_T;
 "smallint"|"int2"|"SMALLINT"|"INT2"             return SMALLINT_T;
-"bigint"|"int8"|"BIGINT"|"INT8"                 return BIGINT_T;
+"bigint"|"int8"|"BIGINT"|"INT8"                 return BIGINT_T; 
 "smallserial"|"serial2"|"SMALLSERIAL"|"SERIAL2" return SMALLSERIAL;
 "serial"|"serial4"|"SERIAL"|"SERIAL4"           return SERIAL;
 "bigserial"|"serial8"|"BIGSERIAL"|"SERIAL8"     return BIGSERIAL;
@@ -148,11 +150,11 @@
 "txid_snapshot"         return TXIDSNAP;
 "uuid"                  return UUID;
 "xml"                   return XML;
-
+                    
 [$][0-9]*[.]?[0-9]*     return MONEY;  //example, not actually how we will parse money
-[0-9]+                  return (yyleng<=3 ? SMALLINT : yyleng<=8 ? INTEGER : BIGINT);//Check integer sizes (need to check for leading 0s)
-['][a-zA-Z_ -]*[0-9]*[']  return (yyleng==2 ? NULLCHAR : yyleng==3 ? CHARACTER : STRING);//Check string sizes
-["][a-zA-Z_ -]*[0-9]*["]  return (yyleng==2 ? NULLCHAR : yyleng==3 ? CHARACTER : STRING);//Check string sizes
+[0-9]+                  return (yyleng<=3 ? SMALLINT : yyleng<=8 ? INTEGER : BIGINT);//Check integer sizes (need to check for leading 0s)//Maybe change numbers to numbers. So do yylval=atoi(yytext); return NUM;think i need .y bison file for this
+['][a-zA-Z_ - 0-9]*[']  return (yyleng==2 ? NULLCHAR : yyleng==3 ? CHARACTER : STRING);//Check string sizes
+["][a-zA-Z_ - 0-9]*["]  return (yyleng==2 ? NULLCHAR : yyleng==3 ? CHARACTER : STRING);//Check string sizes
 [0-1]?[0-9][/][0-3]?[0-9][/][0-9][0-9][0-9][0-9] return DATE; //prolly a better way to check for 4 numbers
 [0-9]+[.][0-9]+         return (yyleng<=8 ? FLOAT : DOUBLE);//need to check for leading 0s
 :                       return COLON;
