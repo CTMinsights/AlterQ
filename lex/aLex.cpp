@@ -5,6 +5,7 @@
 #include <vector>
 #include <fstream>
 #include "aLex.h"
+#include "strucTest.h"
 using namespace std;
 
 int yylex();
@@ -21,6 +22,8 @@ void lexxerCmd(){
     int ntoken;
     ntoken=yylex();
     while(ntoken){
+        foo();
+        cout<<LESSEQUAL<<endl;
         string txt = "";
         int sz = strlen(yytext);//strlen might not get correct length(needs \0)
         for(int i=0; i<sz; i++){

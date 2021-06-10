@@ -13,6 +13,28 @@
 #define TRUE_B 212 
 #define FALSE_B 213 
 
+// Punctuation
+#define COLON 101
+#define SEMICOLON 102
+#define SINGQUOTE 103
+#define DUBQUOTE 104
+#define OPENPAREN 105
+#define CLOSEPAREN 106
+#define OPENBRACKET 107
+#define CLOSEBRACKET 108
+#define OPENBRACE 109
+#define CLOSEBRACE 110
+#define COMMA 111
+#define EQUALS 112
+#define NOTEQUALS 113
+#define LESSEQUAL 114
+#define GREATEQUAL 115
+#define LESSER 116
+#define GREATER 117
+#define PLUS 118
+#define MINUS 119
+#define AST 120
+
 // Datatypes (datatype labels) https://www.postgresql.org/docs/current/datatype.html
 #define TEXT 312
 #define INT_T 313
@@ -159,25 +181,3 @@
 #define DROP 1008
 #define INTO 1009
 #define COMMENT 1010
-
-// Punctuation
-#define COLON 101
-#define SEMICOLON 102
-#define SINGQUOTE 103
-#define DUBQUOTE 104
-#define OPENPAREN 105
-#define CLOSEPAREN 106
-#define OPENBRACKET 107
-#define CLOSEBRACKET 108
-#define OPENBRACE 109
-#define CLOSEBRACE 110
-#define COMMA 111
-#define EQUALS 112
-#define NOTEQUALS 113
-#define LESSEQUAL 114
-#define GREATEQUAL 115
-#define LESSER 116
-#define GREATER 117
-#define PLUS 118
-#define MINUS 119
-#define AST 120
