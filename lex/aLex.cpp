@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <iostream>
-#include <string.h>
+#include <string>
 #include <assert.h>
 #include <vector>
 #include <fstream>
@@ -116,8 +116,8 @@ int main(void){
     //vec = lexxer(testStr);//Use this on input from file
 
     //runTests();//Run tests
-
-    lexxerCmd();//Use this on input from cmd line and to see details printed
+    foo();
+    //lexxerCmd();//Use this on input from cmd line and to see details printed
 
     
     return 0;
