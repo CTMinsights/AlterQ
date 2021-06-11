@@ -25,8 +25,6 @@
 "INSERT"            return INSERT;
 "INSERT INTO"       return INSERTINTO;
 "INTO"              return INTO;
-"NULL"              return ISNULL;
-"NOT NULL"          return ISNOTNULL;
 "LIKE"              return LIKE;
 "LIMIT"             return LIMIT;
 "MAX"               return MAX;
@@ -73,6 +71,7 @@
 "WITH"              return WITH;
 "DATA"              return DATA;
 "NOT EXISTS"        return NOTEXISTS;
+"IF EXISTS"         return IFEXISTS;
 "EXISTS"            return EXISTS;
 "OFFSET"            return OFFSET;
 "ROW"               return ROW;
@@ -106,6 +105,26 @@
 "ADD"               return ADD;
 "DROP"              return DROP;
 "COMMENT"           return COMMENT;
+"COLLATE"           return COLLATE;
+"INHERITS"          return INHERITS;
+"PARTITION BY"      return PARTITION;
+"RANGE"             return RANGE;
+"LIST"              return LIST;
+"HASH"              return HASH;
+"TEMP"|"TEMPORARY"  return TEMP;
+"UNLOGGED"          return UNLOGGED;
+"EXCLUDE"           return EXCLUDE;
+"ASC"               return ASC;
+"DESC"              return DESC;
+"NULLS"             return NULLS;
+"NOT NULL"          return ISNOTNULL;
+"NULL"              return ISNULL;
+"INCLUDING"         return INCLUDING;
+"EXCLUDING"         return EXCLUDING;
+"GLOBAL"            return GLOBAL;
+"LOCAL"             return LOCAL;
+"TABLESPACE"        return TABLESPACE;
+"CASCADE"           return CASCADE;
 
 "text"|"TEXT"                                   return TEXT;
 "int"|"integer"|"int4"|"INT"|"INTEGER"|"INT4"   return INT_T;
