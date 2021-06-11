@@ -9,23 +9,28 @@ struct dropStmt
     bool ifexists;
     bool cascade;
     bool restrict;
+
     dropStmt(std::string query){
         stmt = query;
-        name = "";
+        name = {};
         ifexists = false;
         cascade = false;
         restrict = false;
-
-        std::vector<int> lexVec = lexxer(query);
-        int sz = lexVec.size();
-        if(lexVec[0]!=DROPTABLE){
+        std::pair<std::vector<int>, std::vector<std::string>> par = lex(query);
+        std::vector<int> tokVec = par.first; 
+        std::vector<std::string> strVec = par.second; 
+        int sz = tokVec.size();
+        if(tokVec[0]!=DROPTABLE){
             std::cout<<"ERROR: Not a DROP TABLE statement!"<<std::endl;
         }
-        if(lexVec[sz-1]!=SEMICOLON){
+        if(tokVec[sz-1]!=SEMICOLON){
             std::cout<<"ERROR: Needs a ; at the end!"<<std::endl;
         }
         for(int i = 1; i<sz-1; i++){
-            switch(i){
+            switch(tokVec[i]){
+                case STRINGNOQUOTES:
+                    name = strVec[i];
+                    break;
                 case IFEXISTS:
                     ifexists=true;
                     break;

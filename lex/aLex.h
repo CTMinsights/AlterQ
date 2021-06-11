@@ -1,9 +1,10 @@
 #include <vector>
 #include <string>
 #include <string.h>
+#include <utility>
 
 void lexxerCmd();
-std::vector<int> lexxer(std::string str);
+std::pair<std::vector<int>, std::vector<std::string>> lex(std::string str);
 void runTests();
 
 // Data (actual data)

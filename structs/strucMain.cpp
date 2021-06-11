@@ -9,6 +9,6 @@ using namespace std;
 
 void foo()
 {
-    cout << "Hello World!\n";
     dropStmt ds = dropStmt("DROP TABLE tab;");
+    cout<<"Success"<<endl;
 }

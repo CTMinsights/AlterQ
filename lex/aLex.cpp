@@ -4,6 +4,7 @@
 #include <assert.h>
 #include <vector>
 #include <fstream>
+#include <utility>
 #include "aLex.h"
 #include "../structs/strucMain.h"
 using namespace std;
@@ -22,8 +23,6 @@ void lexxerCmd(){
     int ntoken;
     ntoken=yylex();
     while(ntoken){
-        foo();
-        cout<<LESSEQUAL<<endl;
         string txt = "";
         int sz = strlen(yytext);//strlen might not get correct length(needs \0)
         for(int i=0; i<sz; i++){
@@ -32,6 +31,29 @@ void lexxerCmd(){
         cout<<ntoken<<" : "<<txt<<endl;
         ntoken = yylex();
     }
+}
+
+pair<vector<int>, vector<string>> lex(string str){
+    pair<vector<int>, vector<string>> par;
+    vector<int> vec1;
+    vector<string> vec2;
+    ofstream myfile;
+    myfile.open("test.txt");
+    myfile << str;
+    myfile.close();
+    int ntoken;
+    FILE *fd;
+    fd = fopen("test.txt", "r");
+    yyset_in(fd);
+    ntoken=yylex();
+    while(ntoken){
+        vec1.push_back(ntoken);
+        vec2.push_back(string(yytext));
+        ntoken = yylex();
+    }
+    par.first = vec1;
+    par.second = vec2;
+    return par;
 }
 
 /**lexxer function adds input to a file then parses that file
