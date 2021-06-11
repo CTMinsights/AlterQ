@@ -5,7 +5,7 @@
 #include <vector>
 #include <fstream>
 #include "aLex.h"
-#include "strucTest.h"
+#include "../structs/strucTest.h"
 using namespace std;
 
 int yylex();
