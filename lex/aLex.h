@@ -118,11 +118,9 @@ void runTests();
 #define UPDATE 37
 #define WHERE 38
 #define WITH 39
-
 #define INSERTINTO 40
 #define VALUES 41
 #define DROPTABLE 42
-
 #define PRIMARYKEY 43
 #define BY 44
 #define UNIQUE 45
