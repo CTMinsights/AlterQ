@@ -125,6 +125,8 @@
 "LOCAL"             return LOCAL;
 "TABLESPACE"        return TABLESPACE;
 "CASCADE"           return CASCADE;
+"CONTINUE IDENTITY" return CONTIDEN;
+"RESTART IDENTITY"  return RESIDEN;
 
 "text"|"TEXT"                                   return TEXT;
 "int"|"integer"|"int4"|"INT"|"INTEGER"|"INT4"   return INT_T;

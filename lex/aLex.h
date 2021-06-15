@@ -211,3 +211,5 @@ void runTests();
 #define IFEXISTS 1029
 #define CASCADE 1030
 #define RESTRICT 1031
+#define CONTIDEN 1032
+#define RESIDEN 1033
