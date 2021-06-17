@@ -1,0 +1,172 @@
+ALTER TABLE https://www.postgresql.org/docs/12/sql-altertable.html
+ DONE:
+  - table name
+  - IF EXISTS
+  - ONLY
+  - RENAME
+  - COLUMN
+ IN PROGRESS:
+  - from name
+  - to name
+  - ACTION
+     - ADD
+     - DROP
+     - ALTER...
+     - ADD
+     - etc
+  - SET SCHEMA
+  - SET TABLESPACE
+  - ATTACH PARTITION
+  - DETACH PARTITION
+  - 
+
+
+TRUNCATE TABLE https://www.postgresql.org/docs/12/sql-truncate.html
+ DONE:
+  - table name
+  - CASCASE
+  - RESTRICT
+  - CONTINUE IDENTITY
+  - RESTART IDENTITY
+ IN PROGRESS:
+  - *
+  - TABLE not listed
+
+DROP TABLE https://www.postgresql.org/docs/12/sql-droptable.html
+ DONE:
+  - table name
+  - IF EXISTS
+  - CASCADE
+  - RESTRICT
+ IN PROGRESS:
+  - drop multiple tables
+
+CREATE TABLE
+ DONE:
+  -
+ IN PROGRESS:
+  - IF NOT EXISTS
+  - table name
+  - column name/s
+  - column constraints
+  - table constraints
+  - 
+ FUTURE:
+  - GLOBAL
+  - LOCAL
+  - TEMPORARY/TEMP
+  - UNLOGGED
+  - COLLATE
+  - LIKE
+  - PARTITION OF
+  - PARTITION BY
+  - USING
+  - TABLESPACE
+  - ON COMMIT (PRESERVE, DELETE, DROP)
+  - WITH
+
+
+INSERT INTO https://www.postgresql.org/docs/12/sql-insert.html
+ DONE:
+
+ IN PROGRESS:
+  - table name
+  - column names
+  - value datas
+  - VALUES
+  - no col names given
+  - no 'VALUES' given
+  - RETURNING 
+  - DEFAULT
+ FUTURE:
+  - ON CONFLICT
+  - OVERRIDING
+  - multiple row insertion
+  - SELECT nested stmt
+  - WITH
+  - RECURSIVE
+  - AS (alias)
+
+SELECT https://www.postgresql.org/docs/12/sql-select.html
+ DONE:
+
+ IN PROGRESS:
+  - ALL
+  - DISTINCT
+  - colname/s or *
+  - FROM
+     - ONLY
+  - from what/s
+  - WHERE
+  - ORDER BY
+  - LIMIT
+  - OFFSET
+
+ FUTURE:
+  - WITH
+  - RECURSIVE
+  - ON (expr)
+  - HAVING
+  - GROUP BY
+  - WINDOW
+  - UNION/INTERSECT/EXCEPT
+  - FETCH
+  - FOR (...)
+  - FROM LATERAL
+  - FROM AS [alias]
+
+UPDATE https://www.postgresql.org/docs/current/sql-update.html
+ DONE:
+
+ IN PROGRESS:
+  - ONLY
+  - table name
+  - WHERE
+  - SET
+  - colname1 = colname2...
+  - FROM
+ FUTURE: 
+  - WITH
+  - RECURSIVE
+  - AS (alias)
+  - *
+  - RETURNING
+
+
+DELETE FROM https://www.postgresql.org/docs/10/sql-delete.html
+ DONE:
+ IN PROGRESS:
+  - ONLY
+  - table name
+  - WHERE
+ FUTURE:
+  - WITH
+  - RECURSIVE
+  - AS (alias)
+  - USING
+  - RETURNING
+
+----------------------------------------------------------------
+
+OTHERS:
+CREATE/REPLACE
+ - VIEW
+ - SEQUENCE
+ - FUNCTION
+ - EXTENSION
+ - TYPE
+DO
+SET and \SET
+SHOW
+SELECT
+ - now()
+ - current_date
+ - current_time
+ - EXISTS
+Dynamic Query (do$$begin...)
+Recursive Query (WITH RECURSIVE)
+Return function queries (RETURNS SETOF)
+PREPARE
+EXECUTE
+COMMENT
+Cursor stuff

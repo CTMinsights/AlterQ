@@ -1,0 +1,18 @@
+SQL STATEMENTS
+alterStmt.h - ALTER TABLE
+truncateStmt.h - TRUNCATE
+dropStmt.h - DROP TABLE
+
+createStmt.h - CREATE
+insertStmt.h - INSERT INTO
+selectStmt.h - SELECT
+updateStmt.h - UPDATE
+deleteStmt.h - DELETE FROM
+
+----------------------------------------
+
+Helper Structs
+columnDets.h - column constraints/details
+tableDets.h - table constraints/details
+
+
