@@ -13,6 +13,7 @@
 #include "updateStmt.h"
 
 using namespace std;
+using namespace alp;
 
 void test()
 {
@@ -24,10 +25,9 @@ void test()
     deleteStmt dels = deleteStmt("DELETE FROM tab WHERE nums <> 101;");
     selectStmt ss = selectStmt("SELECT * FROM tab;");
     updateStmt us = updateStmt("UPDATE tab SET nums = 999 WHERE nums = 105;");
-
     statement stmt1 = statement("ALTER TABLE tab ADD COLUMN address VARCHAR;");
     alterStmt as2 = alterStmt(stmt1);
-
+ 
     statement stmt2 = statement("SELECT * FROM tab;");
     selectStmt sel2 = selectStmt(stmt2);
 
@@ -48,5 +48,6 @@ void test()
 
     statement stmt8 = statement("UPDATE tab SET nums = 999 WHERE nums = 105;");
     updateStmt us2 = updateStmt(stmt8);
+
     cout<<"Success"<<endl;
 }

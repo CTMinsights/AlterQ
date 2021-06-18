@@ -2,7 +2,8 @@
 #include <vector>
 #include "../lex/aLex.h"
 
-struct tableDets
+namespace alp{
+    struct tableDets
 {
     //std::string stmt;
     
@@ -21,4 +22,6 @@ struct tableDets
             
         }
     }
+
+    ~tableDets(){}
 };

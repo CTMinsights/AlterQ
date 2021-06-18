@@ -3,11 +3,12 @@
 
 #include "statement.h"
 
-struct selectStmt
+namespace alp{
+    struct selectStmt : statement
 {
     std::string stmt;
     
-    selectStmt(std::string query){
+    selectStmt(std::string query) : statement(query){
         stmt = query;
         std::pair<std::vector<int>, std::vector<std::string>> par = lex(query);
         std::vector<int> tokVec = par.first; 
@@ -29,7 +30,7 @@ struct selectStmt
         }
     }
 
-    selectStmt(statement sql){
+    selectStmt(statement sql) : statement(sql){
         std::string query = sql.stmt;
         stmt = query;
         std::pair<std::vector<int>, std::vector<std::string>> par = lex(query);
@@ -51,6 +52,8 @@ struct selectStmt
             
         }
     }
+    
+    ~selectStmt(){}
 };
-
+}
 #endif

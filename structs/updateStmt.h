@@ -3,11 +3,12 @@
 
 #include "statement.h"
 
-struct updateStmt
+namespace alp{
+    struct updateStmt : statement
 {
     std::string stmt;
     
-    updateStmt(std::string query){
+    updateStmt(std::string query) : statement(query){
         stmt = query;
         std::pair<std::vector<int>, std::vector<std::string>> par = lex(query);
         std::vector<int> tokVec = par.first; 
@@ -29,7 +30,7 @@ struct updateStmt
         }
     }
 
-    updateStmt(statement sql){
+    updateStmt(statement sql) : statement(sql){
         std::string query = sql.stmt;
         stmt = query;
         std::pair<std::vector<int>, std::vector<std::string>> par = lex(query);
@@ -51,6 +52,8 @@ struct updateStmt
             
         }
     }
-};
 
+    ~updateStmt(){}
+};
+}
 #endif
