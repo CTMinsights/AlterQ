@@ -138,7 +138,7 @@ int main(void){
     //vec = lexxer(testStr);//Use this on input from file
 
     //runTests();//Run tests
-    foo();
+    test();
     //lexxerCmd();//Use this on input from cmd line and to see details printed
 
     

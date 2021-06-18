@@ -1,15 +1,10 @@
+#ifndef STATEMENT_H
+#define STATEMENT_H
+
 #include <string>
 #include <vector>
 
 #include "../lex/aLex.h"
-#include "dropStmt.h"
-#include "truncateStmt.h"
-#include "createStmt.h"
-#include "deleteStmt.h"
-#include "insertStmt.h"
-#include "selectStmt.h"
-#include "alterStmt.h"
-#include "updateStmt.h"
 
 enum type {Drop, Truncate, Create, Delete, Insert, Select, Alter, Update, None};
 struct statement
@@ -60,3 +55,5 @@ struct statement
         }
     }
 };
+
+#endif

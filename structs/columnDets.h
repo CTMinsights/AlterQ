@@ -1,3 +1,6 @@
+#ifndef COLUMN_DETS_H
+#define COLUMN_DETS_H
+
 #include <string>
 #include <vector>
 #include "../lex/aLex.h"
@@ -22,3 +25,5 @@ struct columnDets
         }
     }
 };
+
+#endif
