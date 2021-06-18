@@ -3,14 +3,7 @@
 
 #include "strucMain.h"
 #include "../lex/aLex.h"
-#include "dropStmt.h"
-#include "truncateStmt.h"
-#include "createStmt.h"
-#include "deleteStmt.h"
-#include "insertStmt.h"
-#include "selectStmt.h"
-#include "alterStmt.h"
-#include "updateStmt.h"
+#include "statement.h"
 
 using namespace std;
 
@@ -24,5 +17,7 @@ void foo()
     deleteStmt dels = deleteStmt("DELETE FROM tab WHERE nums <> 101;");
     selectStmt ss = selectStmt("SELECT * FROM tab;");
     updateStmt us = updateStmt("UPDATE tab SET nums = 999 WHERE nums = 105;");
+
+    statement stmt = statement("SELECT * FROM tab;");
     cout<<"Success"<<endl;
 }
