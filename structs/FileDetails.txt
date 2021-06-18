@@ -2,7 +2,6 @@ SQL STATEMENTS
 alterStmt.h - ALTER TABLE
 truncateStmt.h - TRUNCATE
 dropStmt.h - DROP TABLE
-
 createStmt.h - CREATE
 insertStmt.h - INSERT INTO
 selectStmt.h - SELECT
