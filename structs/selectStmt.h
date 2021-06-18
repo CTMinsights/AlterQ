@@ -21,7 +21,7 @@ struct selectStmt
         for(int i = 1; i<sz-1; i++){
             switch(tokVec[i]){
                 case STRINGNOQUOTES:
-                    name = strVec[i];
+                    //name = strVec[i];
                     break;
             }
             

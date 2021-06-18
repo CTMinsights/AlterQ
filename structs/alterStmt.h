@@ -19,8 +19,9 @@ struct alterStmt
         fromName = {};
         toName = {};
         ifexists = false;
-        cascade = false;
-        restrict = false;
+        only = false;
+        rename = false;
+        column = false;
         std::pair<std::vector<int>, std::vector<std::string>> par = lex(query);
         std::vector<int> tokVec = par.first; 
         std::vector<std::string> strVec = par.second; 
@@ -34,7 +35,7 @@ struct alterStmt
         for(int i = 1; i<sz-1; i++){
             switch(tokVec[i]){
                 case STRINGNOQUOTES://also need to check for colname, and skip if already done(like after TO)
-                    name = strVec[i];
+                    //name = strVec[i];
                     break;
                 case IFEXISTS:
                     ifexists=true;
