@@ -12,13 +12,13 @@ ALTER TABLE https://www.postgresql.org/docs/12/sql-altertable.html
      - ADD
      - DROP
      - ALTER...
-     - ADD
      - etc
+ FUTURE:
   - SET SCHEMA
   - SET TABLESPACE
   - ATTACH PARTITION
   - DETACH PARTITION
-  - 
+  - CONSTRAINTS
 
 
 TRUNCATE TABLE https://www.postgresql.org/docs/12/sql-truncate.html

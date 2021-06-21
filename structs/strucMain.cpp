@@ -15,6 +15,18 @@
 using namespace std;
 using namespace alp;
 
+//helper function to find string in vectors
+int vecFind(vector<string> vec, string str){
+    int index = 0;
+    int sz = vec.size();
+    for(int i=0; i<sz; i++){
+        if(vec[i]==str){
+            return i;
+        }
+    }
+    return -1;
+}
+
 void test()
 {
     dropStmt ds = dropStmt("DROP TABLE tab;");
@@ -25,8 +37,14 @@ void test()
     deleteStmt dels = deleteStmt("DELETE FROM tab WHERE nums <> 101;");
     selectStmt ss = selectStmt("SELECT * FROM tab;");
     updateStmt us = updateStmt("UPDATE tab SET nums = 999 WHERE nums = 105;");
+
     statement stmt1 = statement("ALTER TABLE tab ADD COLUMN address VARCHAR;");
     alterStmt as2 = alterStmt(stmt1);
+    //as2.setStmt("ALTER TABLE tab DEL COLUMN address VARCHAR;");
+    as2.setTableName("newTable");
+    cout<<as2.stmt<<endl;
+
+    
  
     statement stmt2 = statement("SELECT * FROM tab;");
     selectStmt sel2 = selectStmt(stmt2);

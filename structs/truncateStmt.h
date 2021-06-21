@@ -12,7 +12,6 @@ namespace alp{
         bool continueI;
         bool cascade;
         bool restrict;
-
         truncateStmt(std::string query) : statement(query){
             stmt = query;
             tableName = {};

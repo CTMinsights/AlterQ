@@ -6,28 +6,42 @@
 namespace alp{
     struct alterStmt : statement
     {
+        std::vector<std::string> strVec;
+        std::vector<int> tokVec;
+
+        //Need something for colType(enum?)
         std::string stmt;
         std::string tableName;
+        std::string colName;
         std::string fromName;
         std::string toName;
+        bool add;
+        bool drop;
         bool ifexists;
         bool only;
         bool rename;
         bool column;
+        bool ast;
         
         alterStmt(std::string query) : statement(query){
             stmt = query;
             tableName = {};
+            colName = {};
             fromName = {};
             toName = {};
             ifexists = false;
             only = false;
             rename = false;
             column = false;
+            add = false;
+            drop = false;
+            ast = false;
             std::pair<std::vector<int>, std::vector<std::string>> par = lex(query);
-            std::vector<int> tokVec = par.first; 
-            std::vector<std::string> strVec = par.second; 
+            tokVec = par.first; 
+            strVec = par.second; 
             int sz = tokVec.size();
+            bool tabNameLook = true;
+            bool colNameLook = false;
             if(tokVec[0]!=ALTERTABLE){
                 std::cout<<"ERROR: Not a ALTER TABLE statement!"<<std::endl;
             }
@@ -37,7 +51,13 @@ namespace alp{
             for(int i = 1; i<sz-1; i++){
                 switch(tokVec[i]){
                     case STRINGNOQUOTES://also need to check for colname, and skip if already done(like after TO)
-                        //name = strVec[i];
+                        if(tabNameLook){
+                            tableName = strVec[i];
+                            tabNameLook=false;
+                        }else if(colNameLook){
+                            colName = strVec[i];
+                            colNameLook = false;
+                        }
                         break;
                     case IFEXISTS:
                         ifexists=true;
@@ -47,12 +67,23 @@ namespace alp{
                         break;
                     case RENAME:
                         rename=true;
+                        colNameLook = true;
                         break;
                     case COLUMN:
                         column=true;
+                        colNameLook = true;
                         break;
                     case TO:
                         toName=strVec[i+1];
+                        break;
+                    case ADD:
+                        add=true;
+                        break;
+                    case DROP:
+                        drop=true;
+                        break;
+                    case AST:
+                        ast = true;
                         break;
                 }
             }
@@ -62,16 +93,22 @@ namespace alp{
             std::string query = sql.stmt;
             stmt = query;
             tableName = {};
+            colName = {};
             fromName = {};
             toName = {};
             ifexists = false;
             only = false;
             rename = false;
             column = false;
+            add = false;
+            drop = false;
+            ast = false;
             std::pair<std::vector<int>, std::vector<std::string>> par = lex(query);
-            std::vector<int> tokVec = par.first; 
-            std::vector<std::string> strVec = par.second; 
+            tokVec = par.first; 
+            strVec = par.second; 
             int sz = tokVec.size();
+            bool tabNameLook = true;
+            bool colNameLook = false;
             if(tokVec[0]!=ALTERTABLE){
                 std::cout<<"ERROR: Not a ALTER TABLE statement!"<<std::endl;
             }
@@ -81,7 +118,13 @@ namespace alp{
             for(int i = 1; i<sz-1; i++){
                 switch(tokVec[i]){
                     case STRINGNOQUOTES://also need to check for colname, and skip if already done(like after TO)
-                        //name = strVec[i];
+                        if(tabNameLook){
+                            tableName = strVec[i];
+                            tabNameLook=false;
+                        }else if(colNameLook){
+                            colName = strVec[i];
+                            colNameLook = false;
+                        }
                         break;
                     case IFEXISTS:
                         ifexists=true;
@@ -91,15 +134,89 @@ namespace alp{
                         break;
                     case RENAME:
                         rename=true;
+                        colNameLook = true;
                         break;
                     case COLUMN:
                         column=true;
+                        colNameLook = true;
                         break;
                     case TO:
                         toName=strVec[i+1];
                         break;
+                    case ADD:
+                        add=true;
+                        break;
+                    case DROP:
+                        drop=true;
+                        break;
+                    case AST:
+                        ast = true;
+                        break;
                 }
             }
+        }
+
+        std::string getStmt(){
+            reconstructStmt();
+            return stmt;
+        }
+
+        std::string getTableName(){
+            return tableName;
+        }
+        void setTableName(std::string tab){
+            int res = vecFind(strVec, tableName);
+            if(res!=-1){
+                strVec[res] = tab;
+                tableName = tab;
+            }
+            reconstructStmt();
+        }
+
+        void reconstructStmt(){
+            std::string newStmt = "ALTER TABLE ";
+            int sz = tokVec.size();
+            bool tabNameLook = true;
+            bool colNameLook = false;
+            for(int i = 1; i<sz; i++){
+                switch(tokVec[i]){
+                    case STRINGNOQUOTES:
+                        if(tabNameLook){
+                            newStmt += tableName +" ";
+                            tabNameLook=false;
+                        }else if(colNameLook){
+                            newStmt += colName+" ";
+                            colNameLook = false;
+                        }
+                        break;
+                    case IFEXISTS:
+                        newStmt+="IF EXISTS ";
+                        break;
+                    case ONLY:
+                        newStmt+="ONLY ";
+                        break;
+                    case RENAME:
+                        newStmt+="RENAME ";
+                        break;
+                    case COLUMN:
+                        newStmt+="COLUMN ";
+                        colNameLook = true;
+                        break;
+                    case TO:
+                        newStmt+="TO ";
+                        break;
+                    case SEMICOLON:
+                        newStmt+=";";
+                        break;
+                    case ADD:
+                        newStmt+="ADD ";
+                        break;
+                    case DROP:
+                        newStmt+="DROP ";
+                        break;
+                }
+            }
+            stmt = newStmt;
         }
 
         ~alterStmt(){}
