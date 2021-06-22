@@ -209,6 +209,8 @@ void runTests();
 #define IFEXISTS 1029
 #define CASCADE 1030
 #define RESTRICT 1031
-#define CONTIDEN 1032
-#define RESIDEN 1033
+#define CONTINUEIDEN 1032
+#define RESTARTIDEN 1033
 #define IFNOTEXISTS 1034
+#define SCHEMA 1035
+#define DETACH 1036

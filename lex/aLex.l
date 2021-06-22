@@ -63,7 +63,6 @@
 "FULL JOIN"         return FULLJOIN;
 "LEFT JOIN"         return LEFTJOIN;
 "RIGHT JOIN"        return RIGHTJOIN;
-"RENAME COLUMN"     return RENAMECOL;
 "RENAME"            return RENAME;
 "COLUMN"            return COLUMN;
 "WITH NO DATA"      return WITHNODATA;
@@ -125,9 +124,14 @@
 "LOCAL"             return LOCAL;
 "TABLESPACE"        return TABLESPACE;
 "CASCADE"           return CASCADE;
-"CONTINUE IDENTITY" return CONTIDEN;
-"RESTART IDENTITY"  return RESIDEN;
+"CONTINUE IDENTITY" return CONTINUEIDEN;
+"RESTART IDENTITY"  return RESTARTIDEN;
 "IF NOT EXISTS"     return IFNOTEXISTS;
+"TO"                return TO;
+"CONSTRAINT"        return CONSTRAINT;
+"SCHEMA"            return SCHEMA;
+"DETACH"            return DETACH;
+"PARTITION"         return PARTITION;
 
 "text"|"TEXT"                                   return TEXT;
 "int"|"integer"|"int4"|"INT"|"INTEGER"|"INT4"   return INT_T;

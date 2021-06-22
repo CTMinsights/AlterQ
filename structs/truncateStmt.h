@@ -12,6 +12,9 @@ namespace alp{
         bool continueI;
         bool cascade;
         bool restrict;
+        bool ast;
+        std::vector<int> tokVec;
+        std::vector<std::string> strVec;
         truncateStmt(std::string query) : statement(query){
             stmt = query;
             tableName = {};
@@ -19,9 +22,10 @@ namespace alp{
             restartI = false;
             cascade = false;
             restrict = false;
+            ast=false;
             std::pair<std::vector<int>, std::vector<std::string>> par = lex(query);
-            std::vector<int> tokVec = par.first; 
-            std::vector<std::string> strVec = par.second; 
+            tokVec = par.first; 
+            strVec = par.second; 
             int sz = tokVec.size();
             if(tokVec[0]!=TRUNCATE){
                 std::cout<<"ERROR: Not a TRUNCATE TABLE statement!"<<std::endl;
@@ -34,10 +38,10 @@ namespace alp{
                     case STRINGNOQUOTES:
                         tableName = strVec[i];
                         break;
-                    case CONTIDEN:
+                    case CONTINUEIDEN:
                         continueI=true;
                         break;
-                    case RESIDEN:
+                    case RESTARTIDEN:
                         restartI=true;
                         break;
                     case CASCADE:
@@ -45,6 +49,9 @@ namespace alp{
                         break;
                     case RESTRICT:
                         restrict=true;
+                        break;
+                    case AST:
+                        ast = true;
                         break;
                 }
                 
@@ -59,9 +66,10 @@ namespace alp{
             restartI = false;
             cascade = false;
             restrict = false;
+            ast=false;
             std::pair<std::vector<int>, std::vector<std::string>> par = lex(query);
-            std::vector<int> tokVec = par.first; 
-            std::vector<std::string> strVec = par.second; 
+            tokVec = par.first; 
+            strVec = par.second; 
             int sz = tokVec.size();
             if(tokVec[0]!=TRUNCATE){
                 std::cout<<"ERROR: Not a TRUNCATE TABLE statement!"<<std::endl;
@@ -74,10 +82,10 @@ namespace alp{
                     case STRINGNOQUOTES:
                         tableName = strVec[i];
                         break;
-                    case CONTIDEN:
+                    case CONTINUEIDEN:
                         continueI=true;
                         break;
-                    case RESIDEN:
+                    case RESTARTIDEN:
                         restartI=true;
                         break;
                     case CASCADE:
@@ -86,14 +94,51 @@ namespace alp{
                     case RESTRICT:
                         restrict=true;
                         break;
+                    case AST:
+                        ast = true;
+                        break;
                 }
                 
             }
         }
 
-    /*     printTruncateInfo{
-            std::cout<<"truncate info"<<std::endl;
-        } */
+        std::string printTruncateStmt(){
+            reconstructStmt();
+            return stmt;
+        }
+
+        void reconstructStmt(){
+            std::string newStmt = "TRUNCATE TABLE ";
+            int sz = tokVec.size();
+            for(int i = 1; i<sz; i++){
+                switch(tokVec[i]){
+                    case STRINGNOQUOTES:
+                        newStmt += tableName +" ";
+                        break;
+                    case ONLY:
+                        newStmt+="ONLY ";
+                        break;
+                    case RESTARTIDEN:
+                        newStmt+="RESTART IDENTITY ";
+                        break;
+                    case CONTINUEIDEN:
+                        newStmt+="CONTINUE IDENTITY ";
+                        break;
+                    case CASCADE:
+                        newStmt+="CASCADE ";
+                        break;
+                    case RESTRICT:
+                        newStmt+="RESTRICT ";
+                        break;
+                    case AST:
+                        newStmt+="* ";
+                        break;
+                    case SEMICOLON:
+                        newStmt+=";";
+                        break;
+                }
+            }
+        }
             
         ~truncateStmt(){}
     };

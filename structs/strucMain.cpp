@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <assert.h>
 
 #include "strucMain.h"
 #include "../lex/aLex.h"
@@ -40,9 +41,6 @@ void test()
 
     statement stmt1 = statement("ALTER TABLE tab ADD COLUMN address VARCHAR;");
     alterStmt as2 = alterStmt(stmt1);
-    //as2.setStmt("ALTER TABLE tab DEL COLUMN address VARCHAR;");
-    as2.setTableName("newTable");
-    cout<<as2.stmt<<endl;
 
     statement stmt2 = statement("SELECT * FROM tab;");
     selectStmt sel2 = selectStmt(stmt2);
@@ -65,5 +63,27 @@ void test()
     statement stmt8 = statement("UPDATE tab SET nums = 999 WHERE nums = 105;");
     updateStmt us2 = updateStmt(stmt8);
 
+
+    //ALTER TESTS
+    alterStmt altTest1 =alterStmt("ALTER TABLE IF EXISTS ONLY tab1 * RENAME COLUMN col1name TO col2name;");
+    assert(altTest1.printAlterStmt()=="ALTER TABLE IF EXISTS ONLY tab1 * RENAME COLUMN col1name TO col2name ;");
+    //alterStmt altTest1 =alterStmt("ALTER TABLE IF EXISTS ONLY tab1 RENAME COLUMN col1name TO col2name;");
+    //alterStmt altTest1 =alterStmt("ALTER TABLE IF EXISTS ONLY tab1 RENAME col1name TO col2name;");
+    //alterStmt altTest1 =alterStmt("ALTER TABLE IF EXISTS tab1 RENAME col1name TO col2name;");
+    //alterStmt altTest1 =alterStmt("ALTER TABLE tab1 RENAME col1name TO col2name;");
+    alterStmt altTest2 = alterStmt("ALTER TABLE IF EXISTS ONLY tab1 * RENAME CONSTRAINT con1 TO con2 ;");
+    assert(altTest2.printAlterStmt()=="ALTER TABLE IF EXISTS ONLY tab1 * RENAME CONSTRAINT con1 TO con2 ;");
+    alterStmt altTest3 = alterStmt("ALTER TABLE IF EXISTS tab1 RENAME TO newTab ;");
+    assert(altTest3.printAlterStmt()=="ALTER TABLE IF EXISTS tab1 RENAME TO newTab ;");
+    alterStmt altTest4 = alterStmt("ALTER TABLE IF EXISTS tab1 SET SCHEMA newSchema ;");
+    assert(altTest4.printAlterStmt()=="ALTER TABLE IF EXISTS tab1 SET SCHEMA newSchema ;");
+    alterStmt altTest5 = alterStmt("ALTER TABLE IF EXISTS tab1 DETACH PARTITION newPart ;");
+    assert(altTest5.printAlterStmt()=="ALTER TABLE IF EXISTS tab1 DETACH PARTITION newPart ;");
+
+    //TRUNCATE TESTS
+    truncateStmt trunTest1 = truncateStmt("TRUNCATE TABLE ONLY tab * RESTART IDENTITY CASCADE ;");
+    assert(trunTest1.printTruncateStmt()=="TRUNCATE TABLE ONLY tab * RESTART IDENTITY CASCADE ;");
+    truncateStmt trunTest2 = truncateStmt("TRUNCATE TABLE ONLY tab * CONTINUE IDENTITY RESTRICT ;");
+    assert(trunTest2.printTruncateStmt()=="TRUNCATE TABLE ONLY tab * CONTINUE IDENTITY RESTRICT ;");
     cout<<"Success"<<endl;
 }
