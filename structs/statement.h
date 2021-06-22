@@ -1,9 +1,8 @@
 #ifndef STATEMENT_H
 #define STATEMENT_H
 
-#include <string>
-#include <vector>
 #include "../lex/aLex.h"
+#include "columnDets.h"
 
 namespace alp {
     enum type {Drop, Truncate, Create, Delete, Insert, Select, Alter, Update, None};

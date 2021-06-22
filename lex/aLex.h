@@ -211,3 +211,4 @@ void runTests();
 #define RESTRICT 1031
 #define CONTIDEN 1032
 #define RESIDEN 1033
+#define IFNOTEXISTS 1034

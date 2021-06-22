@@ -3,14 +3,14 @@
 
 #include "strucMain.h"
 #include "../lex/aLex.h"
-#include "dropStmt.h"
+#include "alterStmt.h"
 #include "truncateStmt.h"
 #include "createStmt.h"
 #include "deleteStmt.h"
 #include "insertStmt.h"
 #include "selectStmt.h"
-#include "alterStmt.h"
 #include "updateStmt.h"
+#include "dropStmt.h"
 
 using namespace std;
 using namespace alp;
@@ -44,8 +44,6 @@ void test()
     as2.setTableName("newTable");
     cout<<as2.stmt<<endl;
 
-    
- 
     statement stmt2 = statement("SELECT * FROM tab;");
     selectStmt sel2 = selectStmt(stmt2);
 

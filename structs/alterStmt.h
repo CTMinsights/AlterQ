@@ -4,6 +4,7 @@
 #include "statement.h"
 
 namespace alp{
+    
     struct alterStmt : statement
     {
         std::vector<std::string> strVec;
@@ -15,9 +16,11 @@ namespace alp{
         std::string colName;
         std::string fromName;
         std::string toName;
+        columnDets colDets;
         bool add;
         bool drop;
         bool ifexists;
+        bool ifnotexists;
         bool only;
         bool rename;
         bool column;
@@ -29,7 +32,9 @@ namespace alp{
             colName = {};
             fromName = {};
             toName = {};
+            colDets= {};
             ifexists = false;
+            ifnotexists = false;
             only = false;
             rename = false;
             column = false;
@@ -61,6 +66,9 @@ namespace alp{
                         break;
                     case IFEXISTS:
                         ifexists=true;
+                        break;
+                    case IFNOTEXISTS:
+                        ifnotexists=true;
                         break;
                     case ONLY:
                         only=true;
@@ -97,6 +105,7 @@ namespace alp{
             fromName = {};
             toName = {};
             ifexists = false;
+            ifnotexists = false;
             only = false;
             rename = false;
             column = false;
@@ -128,6 +137,9 @@ namespace alp{
                         break;
                     case IFEXISTS:
                         ifexists=true;
+                        break;
+                    case IFNOTEXISTS:
+                        ifnotexists=true;
                         break;
                     case ONLY:
                         only=true;
@@ -191,6 +203,9 @@ namespace alp{
                         break;
                     case IFEXISTS:
                         newStmt+="IF EXISTS ";
+                        break;
+                    case IFNOTEXISTS:
+                        newStmt+="IF NOT EXISTS ";
                         break;
                     case ONLY:
                         newStmt+="ONLY ";

@@ -11,7 +11,7 @@ namespace alp{
         bool ifexists;
         bool cascade;
         bool restrict;
-        dropStmt();
+
         dropStmt(std::string query) : statement(query){
             stmt = query;
             tableName = {};

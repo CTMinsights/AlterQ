@@ -127,6 +127,7 @@
 "CASCADE"           return CASCADE;
 "CONTINUE IDENTITY" return CONTIDEN;
 "RESTART IDENTITY"  return RESIDEN;
+"IF NOT EXISTS"     return IFNOTEXISTS;
 
 "text"|"TEXT"                                   return TEXT;
 "int"|"integer"|"int4"|"INT"|"INTEGER"|"INT4"   return INT_T;
