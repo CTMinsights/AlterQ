@@ -85,5 +85,12 @@ void test()
     assert(trunTest1.printTruncateStmt()=="TRUNCATE TABLE ONLY tab * RESTART IDENTITY CASCADE ;");
     truncateStmt trunTest2 = truncateStmt("TRUNCATE TABLE ONLY tab * CONTINUE IDENTITY RESTRICT ;");
     assert(trunTest2.printTruncateStmt()=="TRUNCATE TABLE ONLY tab * CONTINUE IDENTITY RESTRICT ;");
+    
+    //DROP TESTS
+    dropStmt dropTest1 = dropStmt("DROP TABLE IF EXISTS tab1 CASCADE;");
+    assert(dropTest1.printDropStmt()=="DROP TABLE IF EXISTS tab1 CASCADE;");
+    dropStmt dropTest2 = dropStmt("DROP TABLE tab1 RESTRICT;");
+    assert(dropTest2.printDropStmt()=="DROP TABLE tab1 RESTRICT;");
+    
     cout<<"Success"<<endl;
 }

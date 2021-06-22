@@ -15,6 +15,7 @@ namespace alp{
         bool ast;
         std::vector<int> tokVec;
         std::vector<std::string> strVec;
+        
         truncateStmt(std::string query) : statement(query){
             stmt = query;
             tableName = {};

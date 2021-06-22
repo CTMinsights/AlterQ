@@ -11,7 +11,9 @@ namespace alp{
         bool ifexists;
         bool cascade;
         bool restrict;
-
+        std::vector<int> tokVec;
+        std::vector<std::string> strVec;
+        
         dropStmt(std::string query) : statement(query){
             stmt = query;
             tableName = {};
@@ -19,8 +21,8 @@ namespace alp{
             cascade = false;
             restrict = false;
             std::pair<std::vector<int>, std::vector<std::string>> par = lex(query);
-            std::vector<int> tokVec = par.first; 
-            std::vector<std::string> strVec = par.second; 
+            tokVec = par.first; 
+            strVec = par.second; 
             int sz = tokVec.size();
             if(tokVec[0]!=DROPTABLE){
                 std::cout<<"ERROR: Not a DROP TABLE statement!"<<std::endl;
@@ -55,8 +57,8 @@ namespace alp{
             cascade = false;
             restrict = false;
             std::pair<std::vector<int>, std::vector<std::string>> par = lex(query);
-            std::vector<int> tokVec = par.first; 
-            std::vector<std::string> strVec = par.second; 
+            tokVec = par.first; 
+            strVec = par.second; 
             int sz = tokVec.size();
             if(tokVec[0]!=DROPTABLE){
                 std::cout<<"ERROR: Not a DROP TABLE statement!"<<std::endl;
@@ -80,6 +82,32 @@ namespace alp{
                         break;
                 }
                 
+            }
+        }
+
+        std::string printDropStmt(){
+            reconstructStmt();
+            return stmt;
+        }
+
+        void reconstructStmt(){
+            std::string newStmt = "DROP TABLE ";
+            int sz = tokVec.size();
+            for(int i = 1; i<sz; i++){
+                switch(tokVec[i]){
+                    case STRINGNOQUOTES:
+                        newStmt += tableName +" ";
+                        break;
+                    case CASCADE:
+                        newStmt+="CASCADE ";
+                        break;
+                    case RESTRICT:
+                        newStmt+="RESTRICT ";
+                        break;
+                    case SEMICOLON:
+                        newStmt+=";";
+                        break;
+                }
             }
         }
 
