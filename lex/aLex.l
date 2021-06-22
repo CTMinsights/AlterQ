@@ -87,6 +87,7 @@
 "ALL"               return ALL;
 "SET"               return SET;
 "RETURNING"         return RETURNING;
+"RETURNING *"       return RETURNINGSTAR;
 "FROM"              return FROM;
 "REPLACE"           return REPLACE;
 "VIEW"              return VIEW;

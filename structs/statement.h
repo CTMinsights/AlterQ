@@ -2,6 +2,7 @@
 #define STATEMENT_H
 
 #include "columnDets.h"
+#include "Equation.h"
 
 namespace alp {
     enum type {Drop, Truncate, Create, Delete, Insert, Select, Alter, Update, None};

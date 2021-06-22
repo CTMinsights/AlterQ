@@ -91,6 +91,14 @@ void test()
     assert(dropTest1.printDropStmt()=="DROP TABLE IF EXISTS tab1 CASCADE;");
     dropStmt dropTest2 = dropStmt("DROP TABLE tab1 RESTRICT;");
     assert(dropTest2.printDropStmt()=="DROP TABLE tab1 RESTRICT;");
-    
+
+    //DELETE TESTS
+    deleteStmt delTest1 = deleteStmt("DELETE FROM ONLY tab WHERE nums <> 101;");
+    assert(delTest1.printDeleteStmt()=="DELETE FROM ONLY tab WHERE nums <> 101;");
+    deleteStmt delTest2 = deleteStmt("DELETE FROM tab WHERE nums >= 1;");
+    assert(delTest2.printDeleteStmt()=="DELETE FROM tab WHERE nums >= 1;");
+    deleteStmt delTest3 = deleteStmt("DELETE FROM tab * WHERE names = 'alex' RETURNING *;");
+    assert(delTest3.printDeleteStmt()=="DELETE FROM tab * WHERE names = 'alex' RETURNING *;");
+
     cout<<"Success"<<endl;
 }
