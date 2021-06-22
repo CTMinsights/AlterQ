@@ -5,8 +5,10 @@
 #include <vector>
 #include <fstream>
 #include <utility>
+
 #include "aLex.h"
 #include "../structs/strucMain.h"
+
 using namespace std;
 
 int yylex();
