@@ -76,6 +76,7 @@ namespace alp{
                         whereEq.left = strVec[i+1];
                         whereEq.sym = strVec[i+2];
                         whereEq.right = strVec[i+3];
+                        i+=3;
                         break;
                     case AST:
                         ast=true;
@@ -148,6 +149,7 @@ namespace alp{
                         whereEq.left = strVec[i+1];
                         whereEq.sym = strVec[i+2];
                         whereEq.right = strVec[i+3];
+                        i+=3;
                         break;
                     case AST:
                         ast=true;
@@ -202,6 +204,7 @@ namespace alp{
                     case WHERE:
                         newStmt+="WHERE ";
                         newStmt += whereEq.printEquation()+" ";
+                        i+=3;
                         break;
                     case AST:
                         newStmt+="* ";
@@ -213,8 +216,9 @@ namespace alp{
                         newStmt+="RETURNING * ";
                         break;
                 }
-                
             }
+            newStmt+=";";
+            stmt=newStmt;
         }
 
         ~deleteStmt(){}

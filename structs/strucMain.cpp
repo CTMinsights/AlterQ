@@ -81,24 +81,28 @@ void test()
     assert(altTest5.printAlterStmt()=="ALTER TABLE IF EXISTS tab1 DETACH PARTITION newPart ;");
 
     //TRUNCATE TESTS
-    truncateStmt trunTest1 = truncateStmt("TRUNCATE TABLE ONLY tab * RESTART IDENTITY CASCADE ;");
+    truncateStmt trunTest1 = truncateStmt("TRUNCATE TABLE ONLY tab * RESTART IDENTITY CASCADE;");
     assert(trunTest1.printTruncateStmt()=="TRUNCATE TABLE ONLY tab * RESTART IDENTITY CASCADE ;");
     truncateStmt trunTest2 = truncateStmt("TRUNCATE TABLE ONLY tab * CONTINUE IDENTITY RESTRICT ;");
     assert(trunTest2.printTruncateStmt()=="TRUNCATE TABLE ONLY tab * CONTINUE IDENTITY RESTRICT ;");
     
     //DROP TESTS
     dropStmt dropTest1 = dropStmt("DROP TABLE IF EXISTS tab1 CASCADE;");
-    assert(dropTest1.printDropStmt()=="DROP TABLE IF EXISTS tab1 CASCADE;");
+    assert(dropTest1.printDropStmt()=="DROP TABLE IF EXISTS tab1 CASCADE ;");
     dropStmt dropTest2 = dropStmt("DROP TABLE tab1 RESTRICT;");
-    assert(dropTest2.printDropStmt()=="DROP TABLE tab1 RESTRICT;");
+    assert(dropTest2.printDropStmt()=="DROP TABLE tab1 RESTRICT ;");
 
     //DELETE TESTS
     deleteStmt delTest1 = deleteStmt("DELETE FROM ONLY tab WHERE nums <> 101;");
-    assert(delTest1.printDeleteStmt()=="DELETE FROM ONLY tab WHERE nums <> 101;");
+    assert(delTest1.printDeleteStmt()=="DELETE FROM ONLY tab WHERE nums <> 101 ;");
     deleteStmt delTest2 = deleteStmt("DELETE FROM tab WHERE nums >= 1;");
-    assert(delTest2.printDeleteStmt()=="DELETE FROM tab WHERE nums >= 1;");
+    assert(delTest2.printDeleteStmt()=="DELETE FROM tab WHERE nums >= 1 ;");
     deleteStmt delTest3 = deleteStmt("DELETE FROM tab * WHERE names = 'alex' RETURNING *;");
-    assert(delTest3.printDeleteStmt()=="DELETE FROM tab * WHERE names = 'alex' RETURNING *;");
+    assert(delTest3.printDeleteStmt()=="DELETE FROM tab * WHERE names = 'alex' RETURNING * ;");
 
+    //UPDATE TESTS
+    updateStmt upTest1 = updateStmt("UPDATE ONLY tab1 * AS tabby SET col1 = 'name1' WHERE col1 = 'name5';");
+    assert(upTest1.printUpdateStmt()=="UPDATE ONLY tab1 * AS tabby SET col1 = 'name1' WHERE col1 = 'name5' ;");
+    
     cout<<"Success"<<endl;
 }

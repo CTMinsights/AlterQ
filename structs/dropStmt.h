@@ -93,7 +93,7 @@ namespace alp{
         void reconstructStmt(){
             std::string newStmt = "DROP TABLE ";
             int sz = tokVec.size();
-            for(int i = 1; i<sz; i++){
+            for(int i = 1; i<sz-1; i++){
                 switch(tokVec[i]){
                     case STRINGNOQUOTES:
                         newStmt += tableName +" ";
@@ -104,11 +104,13 @@ namespace alp{
                     case RESTRICT:
                         newStmt+="RESTRICT ";
                         break;
-                    case SEMICOLON:
-                        newStmt+=";";
+                    case IFEXISTS:
+                        newStmt+="IF EXISTS ";
                         break;
                 }
             }
+            newStmt+=";";
+            stmt=newStmt;
         }
 
         ~dropStmt(){}
