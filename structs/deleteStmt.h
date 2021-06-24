@@ -88,7 +88,6 @@ namespace alp{
                         returningStar=true;
                         break;
                 }
-                
             }
         }
 
@@ -160,8 +159,7 @@ namespace alp{
                     case RETURNINGSTAR:
                         returningStar=true;
                         break;
-                }
-                
+                }               
             }
         }
         std::string printDeleteStmt(){

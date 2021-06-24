@@ -111,5 +111,9 @@ void test()
     assert(inTest2.printInsertStmt()=="INSERT INTO tab (nums, title) VALUES (105, 'Banana') ;");
     //insertStmt inTest3 = insertStmt("INSERT INTO tab(nums, title) VALUES (1051234, 'Banana');");
     //assert(inTest3.printInsertStmt()=="INSERT INTO tab (nums, title) VALUES (1051234, 'Banana') ;");//breaks cause int not done, same with float, etc
+    
+    //SELECT TESTS
+    selectStmt selTest1 = selectStmt("SELECT * FROM tab;");
+    cout<<selTest1.printSelectStmt()<<endl;
     cout<<"Success"<<endl;
 }

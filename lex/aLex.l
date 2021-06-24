@@ -35,6 +35,7 @@
 "OUTER JOIN"        return OUTERJOIN;
 "ROUND"             return ROUND;
 "SELECT DISTINCT"   return SELECTDISTINCT;
+"SELECT ALL"        return SELECT;
 "SELECT"            return SELECT;
 "SUM"               return SUM;
 "UPDATE"            return UPDATE;
