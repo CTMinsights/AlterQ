@@ -114,6 +114,13 @@ void test()
     
     //SELECT TESTS
     selectStmt selTest1 = selectStmt("SELECT * FROM tab;");
-    cout<<selTest1.printSelectStmt()<<endl;
+    assert(selTest1.printSelectStmt()=="SELECT * FROM tab ;");
+    selectStmt selTest2 = selectStmt("SELECT * FROM distributors ORDER BY 2;");
+    assert(selTest2.printSelectStmt()=="SELECT * FROM distributors ORDER BY 2 ;");
+    selectStmt selTest3 = selectStmt("SELECT * FROM distributors GROUP BY name;");
+    assert(selTest3.printSelectStmt()=="SELECT * FROM distributors GROUP BY name ;");
+    selectStmt selTest4 = selectStmt("SELECT name FROM distributors ORDER BY 5 LIMIT 10;");
+    assert(selTest4.printSelectStmt()=="SELECT name FROM distributors ORDER BY 5 LIMIT 10 ;");
+  
     cout<<"Success"<<endl;
 }

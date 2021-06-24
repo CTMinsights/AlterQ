@@ -103,6 +103,11 @@ namespace alp{
                         limitStr=strVec[i+1];
                         i++;
                         break;
+                    case ORDERBY:
+                        orderBy=true;
+                        orderByStr=strVec[i+1];
+                        i++;
+                        break;
                     case WHERE:
                         where=true;
                         whereEq.left = strVec[i+1];
@@ -213,6 +218,11 @@ namespace alp{
                         limitStr=strVec[i+1];
                         i++;
                         break;
+                    case ORDERBY:
+                        orderBy=true;
+                        orderByStr=strVec[i+1];
+                        i++;
+                        break;
                     case WHERE:
                         where=true;
                         whereEq.left = strVec[i+1];
@@ -296,6 +306,10 @@ namespace alp{
                         break;
                     case LIMIT:
                         newStmt+="LIMIT "+limitStr+" ";
+                        i++;
+                        break;
+                    case ORDERBY:
+                        newStmt+="ORDER BY "+orderByStr+" ";
                         i++;
                         break;
                     case WHERE:
