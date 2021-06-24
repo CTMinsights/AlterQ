@@ -5,55 +5,292 @@
 
 namespace alp{
     struct insertStmt : statement
-{
-    std::string stmt;
-    
-    insertStmt(std::string query) : statement(query){
-        stmt = query;
-        std::pair<std::vector<int>, std::vector<std::string>> par = lex(query);
-        std::vector<int> tokVec = par.first; 
-        std::vector<std::string> strVec = par.second; 
-        int sz = tokVec.size();
-        if(tokVec[0]!=INSERTINTO){
-            std::cout<<"ERROR: Not an INSERT INTO statement!"<<std::endl;
-        }
-        if(tokVec[sz-1]!=SEMICOLON){
-            std::cout<<"ERROR: Needs a ; at the end!"<<std::endl;
-        }
-        for(int i = 1; i<sz-1; i++){
-            switch(tokVec[i]){
-                case STRINGNOQUOTES:
-                    //name = strVec[i];
-                    break;
-            }
-            
-        }
-    }
+    {
+        std::string stmt;
+        std::string tableName;
+        bool as;
+        std::string aliasStr;
+        bool values;
+        bool returning;
+        bool returningStar;
+        std::vector<std::string> colNames;
+        std::vector<std::string> valuesVec;
 
-    insertStmt(statement sql) : statement(sql){
-        std::string query = sql.stmt;
-        stmt = query;
-        std::pair<std::vector<int>, std::vector<std::string>> par = lex(query);
-        std::vector<int> tokVec = par.first; 
-        std::vector<std::string> strVec = par.second; 
-        int sz = tokVec.size();
-        if(tokVec[0]!=INSERTINTO){
-            std::cout<<"ERROR: Not an INSERT INTO statement!"<<std::endl;
-        }
-        if(tokVec[sz-1]!=SEMICOLON){
-            std::cout<<"ERROR: Needs a ; at the end!"<<std::endl;
-        }
-        for(int i = 1; i<sz-1; i++){
-            switch(tokVec[i]){
-                case STRINGNOQUOTES:
-                    //name = strVec[i];
-                    break;
-            }
-            
-        }
-    }
+        std::vector<int> tokVec;
+        std::vector<std::string> strVec;
 
-    ~insertStmt(){}
-};
+        insertStmt(std::string query) : statement(query){
+            stmt = query;
+            tableName = {};
+            as=false;
+            aliasStr={};
+            colNames={};
+            valuesVec={};
+            returning=false;
+            returningStar=false;
+
+            std::pair<std::vector<int>, std::vector<std::string>> par = lex(query);
+            tokVec = par.first; 
+            strVec = par.second; 
+            int sz = tokVec.size();
+
+            bool tableNameLook = true;
+            bool aliasLook = false;
+            bool parenOpen = false;
+            bool colLook = true;
+            bool valLook = false;
+
+            if(tokVec[0]!=INSERTINTO){
+                std::cout<<"ERROR: Not an INSERT INTO statement!"<<std::endl;
+            }
+            if(tokVec[sz-1]!=SEMICOLON){
+                std::cout<<"ERROR: Needs a ; at the end!"<<std::endl;
+            }
+            for(int i = 1; i<sz-1; i++){
+                switch(tokVec[i]){
+                    case STRINGNOQUOTES:
+                        if(tableNameLook){
+                            tableName = strVec[i];
+                            tableNameLook=false;
+                        }else if(aliasLook){
+                            aliasStr = strVec[i];
+                            aliasLook=false;
+                        }else if(parenOpen&&colLook){
+                            colNames.push_back(strVec[i]);
+                        }else if(parenOpen&&valLook){
+                            valuesVec.push_back(strVec[i]);
+                        }
+                        break;
+                    case STRING:
+                        if(tableNameLook){
+                            tableName = strVec[i];
+                            tableNameLook=false;
+                        }else if(aliasLook){
+                            aliasStr = strVec[i];
+                            aliasLook=false;
+                        }else if(parenOpen&&colLook){
+                            colNames.push_back(strVec[i]);
+                        }else if(parenOpen&&valLook){
+                            valuesVec.push_back(strVec[i]);
+                        }
+                        break;
+                    case SMALLINT://This fixes the stringifying numbers issue but a better way would be to just treat them all as strings like they are in strVec
+                        if(parenOpen&&colLook){
+                            colNames.push_back(strVec[i]);
+                        }else if(parenOpen&&valLook){
+                            valuesVec.push_back(strVec[i]);
+                        }
+                        break;
+                    case AS:
+                        as=true;
+                        aliasLook=true;
+                        break;
+                    case RETURNING:
+                        returning=true;
+                        break;
+                    case RETURNINGSTAR:
+                        returningStar=true;
+                        break;
+                    case OPENPAREN:
+                        parenOpen=true;
+                        break;
+                    case CLOSEPAREN:
+                        parenOpen=false;
+                        colLook=false;
+                        valLook=false;
+                        break;
+                    case VALUES:
+                        values=true;
+                        valLook=true;
+                        break;
+                }
+            }
+        }
+
+        insertStmt(statement sql) : statement(sql){
+            std::string query = sql.stmt;
+            tableName={};
+            stmt = query;
+            as=false;
+            aliasStr={};
+            colNames={};
+            valuesVec={};
+            returning=false;
+            returningStar=false;
+
+            std::pair<std::vector<int>, std::vector<std::string>> par = lex(query);
+            tokVec = par.first; 
+            strVec = par.second; 
+            int sz = tokVec.size();
+
+            bool tableNameLook = true;
+            bool aliasLook = false;
+            bool parenOpen = false;
+            bool colLook = true;
+            bool valLook = false;
+
+            if(tokVec[0]!=INSERTINTO){
+                std::cout<<"ERROR: Not an INSERT INTO statement!"<<std::endl;
+            }
+            if(tokVec[sz-1]!=SEMICOLON){
+                std::cout<<"ERROR: Needs a ; at the end!"<<std::endl;
+            }
+            for(int i = 1; i<sz-1; i++){
+                switch(tokVec[i]){
+                    case STRINGNOQUOTES:
+                        if(tableNameLook){
+                            tableName = strVec[i];
+                            tableNameLook=false;
+                        }else if(aliasLook){
+                            aliasStr = strVec[i];
+                            aliasLook=false;
+                        }else if(parenOpen&&colLook){
+                            colNames.push_back(strVec[i]);
+                        }else if(parenOpen&&valLook){
+                            valuesVec.push_back(strVec[i]);
+                        }
+                        break;
+                    case STRING:
+                        if(tableNameLook){
+                            tableName = strVec[i];
+                            tableNameLook=false;
+                        }else if(aliasLook){
+                            aliasStr = strVec[i];
+                            aliasLook=false;
+                        }else if(parenOpen&&colLook){
+                            colNames.push_back(strVec[i]);
+                        }else if(parenOpen&&valLook){
+                            valuesVec.push_back(strVec[i]);
+                        }
+                        break;
+                    case SMALLINT:
+                        if(parenOpen&&colLook){
+                            colNames.push_back(strVec[i]);
+                        }else if(parenOpen&&valLook){
+                            valuesVec.push_back(strVec[i]);
+                        }
+                        break;
+                    case AS:
+                        as=true;
+                        aliasLook=true;
+                        break;
+                    case RETURNING:
+                        returning=true;
+                        break;
+                    case RETURNINGSTAR:
+                        returningStar=true;
+                        break;
+                    case OPENPAREN:
+                        parenOpen=true;
+                        break;
+                    case CLOSEPAREN:
+                        parenOpen=false;
+                        colLook=false;
+                        valLook=false;
+                        break;
+                    case VALUES:
+                        values=true;
+                        valLook=true;
+                        break;
+                }
+            }
+        }
+
+        std::string printInsertStmt(){
+            reconstructStmt();
+            return stmt;
+        }
+
+        void reconstructStmt(){
+            std::string newStmt = "INSERT INTO ";
+            int sz = tokVec.size();
+            bool tableNameLook = true;
+            bool aliasLook = false;
+            bool parenOpen = false;
+            bool colLook = true;
+            bool valLook = false;
+            for(int i = 1; i<sz-1; i++){
+                switch(tokVec[i]){
+                    case STRINGNOQUOTES:
+                        if(tableNameLook){
+                            newStmt+=tableName+" ";
+                            tableNameLook=false;
+                        }else if(aliasLook){
+                            newStmt += aliasStr +" ";
+                            aliasLook=false;
+                        }else if(parenOpen&&colLook){
+                            newStmt+=printVec(colNames);
+                            colLook=false;//gotta be a better way
+                        }else if(parenOpen&&valLook){
+                            newStmt+=printVec(valuesVec);
+                            valLook=false;//gotta be a better way
+                        }
+                        break;
+                    case STRING:
+                        if(tableNameLook){
+                            newStmt+=tableName+" ";
+                            tableNameLook=false;
+                        }else if(aliasLook){
+                            newStmt += aliasStr +" ";
+                            aliasLook=false;
+                        }else if(parenOpen&&colLook){
+                            newStmt+=printVec(colNames);
+                            colLook=false;//gotta be a better way
+                        }else if(parenOpen&&valLook){
+                            newStmt+=printVec(valuesVec);
+                            valLook=false;//gotta be a better way
+                        }
+                        break;
+                    case SMALLINT://Need to account for any type here :/ somehow
+                        if(parenOpen&&colLook){
+                            newStmt+=printVec(colNames);
+                            colLook=false;//gotta be a better way
+                        }else if(parenOpen&&valLook){
+                            newStmt+=printVec(valuesVec);
+                            valLook=false;//gotta be a better way
+                        }
+                        break;
+                    case AS:
+                        newStmt+="AS ";
+                        aliasLook=true;
+                        break;
+                    case RETURNING:
+                        newStmt+="RETURNING ";
+                        break;
+                    case RETURNINGSTAR:
+                        newStmt+="RETURNING * ";
+                        break;
+                    case OPENPAREN:
+                        parenOpen=true;
+                        break;
+                    case CLOSEPAREN:
+                        parenOpen=false;
+                        colLook=false;
+                        valLook=false;
+                        break;
+                    case VALUES:
+                        newStmt+="VALUES ";
+                        valLook=true;
+                        break;
+                    case COMMA://use this later for multirows
+                        break;
+                }
+            }
+            newStmt+=";";
+            stmt=newStmt;
+        }
+
+        std::string printVec(std::vector<std::string> vec){
+            std::string str = "(";
+            int sz = vec.size();
+            for(int i=0; i<sz-1; i++){
+                str+=vec[i]+", ";
+            }
+            str+=vec[sz-1]+") ";
+            return str;
+        }
+        ~insertStmt(){}
+    };
 }
+
 #endif

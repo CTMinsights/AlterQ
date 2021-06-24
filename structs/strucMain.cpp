@@ -104,5 +104,12 @@ void test()
     updateStmt upTest1 = updateStmt("UPDATE ONLY tab1 * AS tabby SET col1 = 'name1' WHERE col1 = 'name5';");
     assert(upTest1.printUpdateStmt()=="UPDATE ONLY tab1 * AS tabby SET col1 = 'name1' WHERE col1 = 'name5' ;");
     
+    //INSERT TESTS
+    insertStmt inTest1 = insertStmt("INSERT INTO tab(nums, title) VALUES ('105', 'Banana');");
+    assert(inTest1.printInsertStmt()=="INSERT INTO tab (nums, title) VALUES ('105', 'Banana') ;");
+    insertStmt inTest2 = insertStmt("INSERT INTO tab(nums, title) VALUES (105, 'Banana');");
+    assert(inTest2.printInsertStmt()=="INSERT INTO tab (nums, title) VALUES (105, 'Banana') ;");
+    //insertStmt inTest3 = insertStmt("INSERT INTO tab(nums, title) VALUES (1051234, 'Banana');");
+    //assert(inTest3.printInsertStmt()=="INSERT INTO tab (nums, title) VALUES (1051234, 'Banana') ;");//breaks cause int not done, same with float, etc
     cout<<"Success"<<endl;
 }
