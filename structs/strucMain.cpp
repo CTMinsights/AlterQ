@@ -122,5 +122,10 @@ void test()
     selectStmt selTest4 = selectStmt("SELECT name FROM distributors ORDER BY 5 LIMIT 10;");
     assert(selTest4.printSelectStmt()=="SELECT name FROM distributors ORDER BY 5 LIMIT 10 ;");
   
+    //CREATE AS TESTS
+    createStmt createTest1 = createStmt("CREATE TABLE tab AS TABLE old_tab WITH NO DATA;");
+    assert(createTest1.printCreateStmt()=="CREATE TABLE tab AS TABLE old_tab WITH NO DATA ;");
+    createStmt createTest2 = createStmt("CREATE LOCAL TEMP UNLOGGED TABLE IF NOT EXISTS tab AS TABLE old_tab WITH NO DATA;");
+    assert(createTest2.printCreateStmt()=="CREATE LOCAL TEMP UNLOGGED TABLE IF NOT EXISTS tab AS TABLE old_tab WITH NO DATA ;");
     cout<<"Success"<<endl;
 }

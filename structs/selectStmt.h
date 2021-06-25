@@ -334,9 +334,6 @@ namespace alp{
                     case ON:
                         newStmt+="ON ";
                         break;
-                    case SEMICOLON:
-                        newStmt+=";";
-                        break;
                 }
             }
 

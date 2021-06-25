@@ -215,3 +215,4 @@ void runTests();
 #define SCHEMA 1035
 #define DETACH 1036
 #define RETURNINGSTAR 1037
+#define TABLE 1038

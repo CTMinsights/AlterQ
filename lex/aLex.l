@@ -136,6 +136,7 @@
 "PARTITION"         return PARTITION;
 "RESTRICT"          return RESTRICT;
 "VALUES"            return VALUES;
+"TABLE"             return TABLE;
 
 "text"|"TEXT"                                   return TEXT;
 "int"|"integer"|"int4"|"INT"|"INTEGER"|"INT4"   return INT_T;

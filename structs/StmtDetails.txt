@@ -41,7 +41,7 @@ DROP TABLE https://www.postgresql.org/docs/12/sql-droptable.html
  IN PROGRESS:
   - drop multiple tables
 
-CREATE TABLE https://www.postgresql.org/docs/10/sql-createtable.html
+CREATE TABLE https://www.postgresql.org/docs/10/sql-createtable.html, https://www.postgresql.org/docs/current/sql-createtableas.html
  DONE:
   -
  IN PROGRESS:
