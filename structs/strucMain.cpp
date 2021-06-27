@@ -127,5 +127,10 @@ void test()
     assert(createTest1.printCreateStmt()=="CREATE TABLE tab AS TABLE old_tab WITH NO DATA ;");
     createStmt createTest2 = createStmt("CREATE LOCAL TEMP UNLOGGED TABLE IF NOT EXISTS tab AS TABLE old_tab WITH NO DATA;");
     assert(createTest2.printCreateStmt()=="CREATE LOCAL TEMP UNLOGGED TABLE IF NOT EXISTS tab AS TABLE old_tab WITH NO DATA ;");
+    createStmt createTest3 = createStmt("CREATE TABLE tab (nums INT);");
+    assert(createTest3.printCreateStmt()=="CREATE TABLE tab (nums INT ) ;");
+    createStmt createTest4 = createStmt("CREATE TABLE tab (nums INT, names VARCHAR, circ circle);");
+    assert(createTest4.printCreateStmt()=="CREATE TABLE tab (nums INT , names VARCHAR , circ circle ) ;");
+
     cout<<"Success"<<endl;
 }

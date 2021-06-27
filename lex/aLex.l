@@ -40,8 +40,8 @@
 "SUM"               return SUM;
 "UPDATE"            return UPDATE;
 "WHERE"             return WHERE;
-"DROP TABLE"        return DROPTABLE;
-"TEXT"              return TEXT;
+"DROP TABLE"        return DROPTABLE;// "TEXT"              return TEXT;
+
 "true"|"TRUE"       return TRUE_B;
 "false"|"FALSE"     return FALSE_B;
 "PRIMARY KEY"       return PRIMARYKEY;
@@ -137,50 +137,6 @@
 "RESTRICT"          return RESTRICT;
 "VALUES"            return VALUES;
 "TABLE"             return TABLE;
-
-"text"|"TEXT"                                   return TEXT;
-"int"|"integer"|"int4"|"INT"|"INTEGER"|"INT4"   return INT_T;
-"smallint"|"int2"|"SMALLINT"|"INT2"             return SMALLINT_T;
-"bigint"|"int8"|"BIGINT"|"INT8"                 return BIGINT_T; 
-"smallserial"|"serial2"|"SMALLSERIAL"|"SERIAL2" return SMALLSERIAL;
-"serial"|"serial4"|"SERIAL"|"SERIAL4"           return SERIAL;
-"bigserial"|"serial8"|"BIGSERIAL"|"SERIAL8"     return BIGSERIAL;
-"boolean"|"bool"|"BOOLEAN"|"BOOL"               return BOOLEAN;
-"bit"|"BIT"                                     return BIT;
-"varbit"|"bit varying"|"VARBIT"|"BIT VARYING"   return VARBIT;
-"box"|"BOX"                                     return BOX;
-"bytea"|"BYTEA"                                 return BYTEA;
-"character"|"char"|"CHARACTER"|"CHAR"           return CHAR;
-"character varying"|"varchar"|"VARCHAR"|"CHARACTER VARYING" return VARCHAR_T;
-"cidr"                  return CIDR;
-"circle"                return CIRCLE;
-"date"                  return DATE;
-"double precision"|"float8" return DOUBLE_T;
-"inet"                  return INET;
-"interval"              return INTERVAL;
-"json"                  return JSON;
-"jsonb"                 return JSONB;
-"line"                  return LINE;
-"lseg"                  return LSEG;
-"macaddr"               return MACADDR;
-"macaddr8"              return MACADDR8;
-"money"                 return MONEY_T;
-"numeric"|"decimal"     return NUMERIC;
-"path"                  return PATH;
-"pg_lsn"                return PGLSN;
-"pg_snapshot"           return PGSNAP;
-"point"                 return POINT;
-"polygon"               return POLYGON;
-"real"|"float4"         return REAL;
-"time"                  return TIMENOZONE;//Need to add zone/nozone and other [] stuff
-"time2"|"timetz"        return TIMEWITHZONE;//Need to add zone/nozone and other [] stuff
-"timestamp"|"TIMESTAMP"    return TIMESTAMPNOZONE;//Need to add zone/nozone and other [] stuff
-"timestamp2"|"timestamptz" return TIMESTAMPWITHZONE;//Need to add zone/nozone and other [] stuff
-"tsquery"               return TSQUERY;
-"tsvector"              return TSVECTOR;
-"txid_snapshot"         return TXIDSNAP;
-"uuid"                  return UUID;
-"xml"                   return XML;
                     
 [$][0-9]*[.]?[0-9]*     return MONEY;  //example, not actually how we will parse money
 [0-9]+                  return (yyleng<=3 ? SMALLINT : yyleng<=8 ? INTEGER : BIGINT);//Check integer sizes (need to check for leading 0s)//Maybe change numbers to numbers. So do yylval=atoi(yytext); return NUM;think i need .y bison file for this

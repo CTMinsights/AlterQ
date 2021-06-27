@@ -61,7 +61,7 @@ namespace alp{
             strVec = sVec; 
             int sz = tokVec.size();
 
-            for(int i = 1; i<sz-1; i++){
+            for(int i = 0; i<sz; i++){
                 switch(tokVec[i]){
                     case STRINGNOQUOTES:
                         if(colNameLook){
@@ -143,7 +143,7 @@ namespace alp{
 
         int sz = tokVec.size();
 
-        for(int i = 1; i<sz-1; i++){
+        for(int i = 0; i<sz; i++){
             switch(tokVec[i]){
                 case STRINGNOQUOTES:
                     if(colNameLook){
