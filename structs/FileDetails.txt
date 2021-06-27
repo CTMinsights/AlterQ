@@ -2,11 +2,12 @@ SQL STATEMENTS
 alterStmt.h - ALTER TABLE
 truncateStmt.h - TRUNCATE
 dropStmt.h - DROP TABLE
+deleteStmt.h - DELETE FROM
+
 createStmt.h - CREATE
 insertStmt.h - INSERT INTO
 selectStmt.h - SELECT
 updateStmt.h - UPDATE
-deleteStmt.h - DELETE FROM
 
 statement.h
 ----------------------------------------
@@ -16,5 +17,3 @@ columnDets.h - column constraints/details
 tableDets.h - table constraints/details
 
 strucMain.cpp - testing file
-
-

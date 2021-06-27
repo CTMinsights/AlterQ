@@ -39,6 +39,9 @@ namespace alp{
                     case STRINGNOQUOTES:
                         tableName = strVec[i];
                         break;
+                    case STRING:
+                        tableName = strVec[i];
+                        break;
                     case CONTINUEIDEN:
                         continueI=true;
                         break;
@@ -83,6 +86,9 @@ namespace alp{
                     case STRINGNOQUOTES:
                         tableName = strVec[i];
                         break;
+                    case STRING:
+                        tableName = strVec[i];
+                        break;
                     case CONTINUEIDEN:
                         continueI=true;
                         break;
@@ -111,9 +117,12 @@ namespace alp{
         void reconstructStmt(){
             std::string newStmt = "TRUNCATE TABLE ";
             int sz = tokVec.size();
-            for(int i = 1; i<sz; i++){
+            for(int i = 1; i<sz-1; i++){
                 switch(tokVec[i]){
                     case STRINGNOQUOTES:
+                        newStmt += tableName +" ";
+                        break;
+                    case STRING:
                         newStmt += tableName +" ";
                         break;
                     case ONLY:
@@ -134,11 +143,10 @@ namespace alp{
                     case AST:
                         newStmt+="* ";
                         break;
-                    case SEMICOLON:
-                        newStmt+=";";
-                        break;
                 }
             }
+            newStmt+=";";
+            stmt=newStmt;
         }
             
         ~truncateStmt(){}

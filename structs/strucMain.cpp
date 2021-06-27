@@ -81,16 +81,51 @@ void test()
     assert(altTest5.printAlterStmt()=="ALTER TABLE IF EXISTS tab1 DETACH PARTITION newPart ;");
 
     //TRUNCATE TESTS
-    truncateStmt trunTest1 = truncateStmt("TRUNCATE TABLE ONLY tab * RESTART IDENTITY CASCADE ;");
+    truncateStmt trunTest1 = truncateStmt("TRUNCATE TABLE ONLY tab * RESTART IDENTITY CASCADE;");
     assert(trunTest1.printTruncateStmt()=="TRUNCATE TABLE ONLY tab * RESTART IDENTITY CASCADE ;");
     truncateStmt trunTest2 = truncateStmt("TRUNCATE TABLE ONLY tab * CONTINUE IDENTITY RESTRICT ;");
     assert(trunTest2.printTruncateStmt()=="TRUNCATE TABLE ONLY tab * CONTINUE IDENTITY RESTRICT ;");
     
     //DROP TESTS
     dropStmt dropTest1 = dropStmt("DROP TABLE IF EXISTS tab1 CASCADE;");
-    assert(dropTest1.printDropStmt()=="DROP TABLE IF EXISTS tab1 CASCADE;");
+    assert(dropTest1.printDropStmt()=="DROP TABLE IF EXISTS tab1 CASCADE ;");
     dropStmt dropTest2 = dropStmt("DROP TABLE tab1 RESTRICT;");
-    assert(dropTest2.printDropStmt()=="DROP TABLE tab1 RESTRICT;");
+    assert(dropTest2.printDropStmt()=="DROP TABLE tab1 RESTRICT ;");
+
+    //DELETE TESTS
+    deleteStmt delTest1 = deleteStmt("DELETE FROM ONLY tab WHERE nums <> 101;");
+    assert(delTest1.printDeleteStmt()=="DELETE FROM ONLY tab WHERE nums <> 101 ;");
+    deleteStmt delTest2 = deleteStmt("DELETE FROM tab WHERE nums >= 1;");
+    assert(delTest2.printDeleteStmt()=="DELETE FROM tab WHERE nums >= 1 ;");
+    deleteStmt delTest3 = deleteStmt("DELETE FROM tab * WHERE names = 'alex' RETURNING *;");
+    assert(delTest3.printDeleteStmt()=="DELETE FROM tab * WHERE names = 'alex' RETURNING * ;");
+
+    //UPDATE TESTS
+    updateStmt upTest1 = updateStmt("UPDATE ONLY tab1 * AS tabby SET col1 = 'name1' WHERE col1 = 'name5';");
+    assert(upTest1.printUpdateStmt()=="UPDATE ONLY tab1 * AS tabby SET col1 = 'name1' WHERE col1 = 'name5' ;");
     
+    //INSERT TESTS
+    insertStmt inTest1 = insertStmt("INSERT INTO tab(nums, title) VALUES ('105', 'Banana');");
+    assert(inTest1.printInsertStmt()=="INSERT INTO tab (nums, title) VALUES ('105', 'Banana') ;");
+    insertStmt inTest2 = insertStmt("INSERT INTO tab(nums, title) VALUES (105, 'Banana');");
+    assert(inTest2.printInsertStmt()=="INSERT INTO tab (nums, title) VALUES (105, 'Banana') ;");
+    //insertStmt inTest3 = insertStmt("INSERT INTO tab(nums, title) VALUES (1051234, 'Banana');");
+    //assert(inTest3.printInsertStmt()=="INSERT INTO tab (nums, title) VALUES (1051234, 'Banana') ;");//breaks cause int not done, same with float, etc
+    
+    //SELECT TESTS
+    selectStmt selTest1 = selectStmt("SELECT * FROM tab;");
+    assert(selTest1.printSelectStmt()=="SELECT * FROM tab ;");
+    selectStmt selTest2 = selectStmt("SELECT * FROM distributors ORDER BY 2;");
+    assert(selTest2.printSelectStmt()=="SELECT * FROM distributors ORDER BY 2 ;");
+    selectStmt selTest3 = selectStmt("SELECT * FROM distributors GROUP BY name;");
+    assert(selTest3.printSelectStmt()=="SELECT * FROM distributors GROUP BY name ;");
+    selectStmt selTest4 = selectStmt("SELECT name FROM distributors ORDER BY 5 LIMIT 10;");
+    assert(selTest4.printSelectStmt()=="SELECT name FROM distributors ORDER BY 5 LIMIT 10 ;");
+  
+    //CREATE AS TESTS
+    createStmt createTest1 = createStmt("CREATE TABLE tab AS TABLE old_tab WITH NO DATA;");
+    assert(createTest1.printCreateStmt()=="CREATE TABLE tab AS TABLE old_tab WITH NO DATA ;");
+    createStmt createTest2 = createStmt("CREATE LOCAL TEMP UNLOGGED TABLE IF NOT EXISTS tab AS TABLE old_tab WITH NO DATA;");
+    assert(createTest2.printCreateStmt()=="CREATE LOCAL TEMP UNLOGGED TABLE IF NOT EXISTS tab AS TABLE old_tab WITH NO DATA ;");
     cout<<"Success"<<endl;
 }

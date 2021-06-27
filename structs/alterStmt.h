@@ -298,7 +298,7 @@ namespace alp{
             bool schemaLook = false;
             bool partitionLook =false;
 
-            for(int i = 1; i<sz; i++){
+            for(int i = 1; i<sz-1; i++){
                 switch(tokVec[i]){
                     case STRINGNOQUOTES:
                         if(tabNameLook){
@@ -357,9 +357,6 @@ namespace alp{
                     case SET:
                         newStmt+="SET ";
                         break;
-                    case SEMICOLON:
-                        newStmt+=";";
-                        break;
                     case ADD:
                         newStmt+="ADD ";
                         break;
@@ -370,7 +367,8 @@ namespace alp{
                         newStmt+="* ";
                 }
             }
-            stmt = newStmt;
+            newStmt+=";";
+            stmt=newStmt;
         }
 
         ~alterStmt(){}

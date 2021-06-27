@@ -35,6 +35,7 @@
 "OUTER JOIN"        return OUTERJOIN;
 "ROUND"             return ROUND;
 "SELECT DISTINCT"   return SELECTDISTINCT;
+"SELECT ALL"        return SELECT;
 "SELECT"            return SELECT;
 "SUM"               return SUM;
 "UPDATE"            return UPDATE;
@@ -87,6 +88,7 @@
 "ALL"               return ALL;
 "SET"               return SET;
 "RETURNING"         return RETURNING;
+"RETURNING *"       return RETURNINGSTAR;
 "FROM"              return FROM;
 "REPLACE"           return REPLACE;
 "VIEW"              return VIEW;
@@ -132,6 +134,9 @@
 "SCHEMA"            return SCHEMA;
 "DETACH"            return DETACH;
 "PARTITION"         return PARTITION;
+"RESTRICT"          return RESTRICT;
+"VALUES"            return VALUES;
+"TABLE"             return TABLE;
 
 "text"|"TEXT"                                   return TEXT;
 "int"|"integer"|"int4"|"INT"|"INTEGER"|"INT4"   return INT_T;
