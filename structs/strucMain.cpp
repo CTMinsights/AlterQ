@@ -165,6 +165,8 @@ void test()
     //insertStmt inTest3 = insertStmt("INSERT INTO tab(nums, title) VALUES (1051234, 'Banana');");
     //assert(inTest3.printInsertStmt()=="INSERT INTO tab (nums, title) VALUES (1051234, 'Banana') ;");//breaks cause int not done, same with float, etc
     
+    //EDIT: INSERT TESTS
+
     //SELECT TESTS
     selectStmt selTest1 = selectStmt("SELECT * FROM tab;");
     assert(selTest1.printSelectStmt()=="SELECT * FROM tab ;");
@@ -174,8 +176,18 @@ void test()
     assert(selTest3.printSelectStmt()=="SELECT * FROM distributors GROUP BY name ;");
     selectStmt selTest4 = selectStmt("SELECT name FROM distributors ORDER BY 5 LIMIT 10;");
     assert(selTest4.printSelectStmt()=="SELECT name FROM distributors ORDER BY 5 LIMIT 10 ;");
-  
-    //CREATE AS TESTS
+    
+    //EDIT: SELECT TESTS
+    selectStmt selEditTest1 = selectStmt("SELECT * FROM tab;");
+    assert(selEditTest1.getFrom()=="tab");//Test from
+    selEditTest1.setFrom("diffname");
+    assert(selEditTest1.getFrom()=="diffname");
+    assert(selEditTest1.getSelect()=="*");//Test select
+    selEditTest1.setSelect("name");
+    assert(selEditTest1.getSelect()=="name");
+    assert(selEditTest1.printSelectStmt()=="SELECT name FROM diffname ;");
+
+    //CREATE TESTS
     createStmt createTest1 = createStmt("CREATE TABLE tab AS TABLE old_tab WITH NO DATA;");
     assert(createTest1.printCreateStmt()=="CREATE TABLE tab AS TABLE old_tab WITH NO DATA ;");
     createStmt createTest2 = createStmt("CREATE LOCAL TEMP UNLOGGED TABLE IF NOT EXISTS tab AS TABLE old_tab WITH NO DATA;");
@@ -184,6 +196,8 @@ void test()
     assert(createTest3.printCreateStmt()=="CREATE TABLE tab (nums INT ) ;");
     createStmt createTest4 = createStmt("CREATE TABLE tab (nums INT, names VARCHAR, circ circle);");
     assert(createTest4.printCreateStmt()=="CREATE TABLE tab (nums INT , names VARCHAR , circ circle ) ;");
+
+    //EDIT: CREATE TESTS
 
     cout<<"Success"<<endl;
 }

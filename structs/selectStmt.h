@@ -261,6 +261,20 @@ namespace alp{
             }
         }
         
+        std::string getFrom(){
+            return fromStr;
+        }
+        void setFrom(std::string tab){
+            fromStr=tab;
+        }
+
+        std::string getSelect(){
+            return selectStr;
+        }
+        void setSelect(std::string tab){
+            selectStr=tab;
+        }
+
         std::string printSelectStmt(){
             reconstructStmt();
             return stmt;
