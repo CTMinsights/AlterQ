@@ -162,6 +162,32 @@ namespace alp{
                 }               
             }
         }
+
+        std::string getTableName(){
+            return tableName;
+        }
+        void setTableName(std::string tab){
+            int res = vecFind(strVec, tableName);
+            if(res!=-1){
+                strVec[res] = tab;
+                tableName = tab;
+            }
+            reconstructStmt();
+        }
+
+        Equation getWhere(){
+            return whereEq;
+        }
+        void setWhereLeft(std::string str){
+            whereEq.left=str;
+        }
+        void setWhereSymbol(std::string str){
+            whereEq.sym=str;
+        }
+        void setWhereRight(std::string str){
+            whereEq.right=str;
+        }
+
         std::string printDeleteStmt(){
             reconstructStmt();
             return stmt;
