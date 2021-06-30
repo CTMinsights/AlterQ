@@ -249,6 +249,13 @@ namespace alp{
             reconstructStmt();
         }
 
+        std::vector<columnDets> getColVec(){
+            return colVec;
+        }
+        void setColVec(std::vector<columnDets> cv){
+            colVec=cv;
+        }
+
         std::string printCreateStmt(){
             reconstructStmt();
             return stmt;

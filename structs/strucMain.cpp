@@ -215,7 +215,16 @@ void test()
     createEditTest2.setTableName("diffname");
     assert(createEditTest2.getTableName()=="diffname");
     assert(createEditTest2.printCreateStmt()=="CREATE TABLE diffname (nums INT , names VARCHAR , circ circle ) ;");
-    //Do vec
-    
+    assert(createEditTest2.getColVec()[0].printColDets()=="nums INT ");
+    vector<columnDets> cv = createEditTest2.getColVec();
+    columnDets colDets1 = cv[0];
+    colDets1.setColName("newNums");
+    colDets1.setColData("INT8"); 
+    columnDets colDets2 = cv[1];
+    colDets2.setColData("TEXT");
+    createEditTest2.setColVec({colDets1, colDets2, cv[2]});
+    assert(createEditTest2.getColVec()[0].printColDets()=="newNums INT8 ");
+    assert(createEditTest2.printCreateStmt()=="CREATE TABLE diffname (newNums INT8 , names TEXT , circ circle ) ;");
+
     cout<<"Success"<<endl;
 }

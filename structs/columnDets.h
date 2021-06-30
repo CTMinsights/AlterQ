@@ -11,6 +11,8 @@ namespace alp{
 
     struct columnDets
     {
+        //bool colN;
+        //bool colDa;
         std::string colName;
         std::string colDataStr;///Should not use this
         dataType colData;//Should use this
@@ -35,6 +37,8 @@ namespace alp{
         columnDets colDets(std::vector<int> tVec, std::vector<std::string> sVec)
         {
             //columnDets col;
+            //colN=false;
+            //colDa=false;
             colName={};
             colDataStr={};
             ifnotexists = false;
@@ -66,10 +70,12 @@ namespace alp{
                     case STRINGNOQUOTES:
                         if(colNameLook){
                             colName = strVec[i];
+                            //colN=true;
                             colNameLook=false;
                             dataLook=true;
                         }else if(dataLook){
                             colDataStr=strVec[i];
+                            //colDa=true;
                             dataLook=false;
                         }else if(collateLook){
                             collateStr=strVec[i];
@@ -82,10 +88,12 @@ namespace alp{
                     case STRING:
                         if(colNameLook){
                             colName = strVec[i];
+                            //colN=true;
                             colNameLook=false;
                             dataLook=true;
                         }else if(dataLook){
                             colDataStr=strVec[i];
+                            //colDa=true;
                             dataLook=false;
                         }else if(collateLook){
                             collateStr=strVec[i];
@@ -133,86 +141,108 @@ namespace alp{
             return *this;
         }
 
-    std::string printColDets(){
-        std::string colD = "";
-
-        bool colNameLook=true;
-        bool dataLook = false;
-        bool collateLook=false;
-        bool constraintLook=false;
-
-        int sz = tokVec.size();
-
-        for(int i = 0; i<sz; i++){
-            switch(tokVec[i]){
-                case STRINGNOQUOTES:
-                    if(colNameLook){
-                        colD += colName +" ";
-                        colNameLook=false;
-                        dataLook=true;
-                    }else if(dataLook){
-                        colD += colDataStr +" ";
-                        dataLook=false;
-                    }else if(collateLook){
-                        colD += collateStr+" ";;
-                        collateLook=false;
-                    }else if(constraintLook){
-                        colD += constraintStr+" ";
-                        constraintLook=false;
-                    }
-                    break;
-                case STRING:
-                    if(colNameLook){
-                        colD += colName +" ";
-                        colNameLook=false;
-                        dataLook=true;
-                    }else if(dataLook){
-                        colD += colDataStr +" ";
-                        dataLook=false;
-                    }else if(collateLook){
-                        colD += collateStr+" ";;
-                        collateLook=false;
-                    }else if(constraintLook){
-                        colD += constraintStr+" ";
-                        constraintLook=false;
-                    }
-                    break;
-                case COLLATE:
-                    colD+="COLLATE ";
-                    collateLook=true;
-                    break;
-                case CONSTRAINT:
-                    colD+="CONSTRAINT ";
-                    constraintLook=true;
-                    break;
-                case ISNULL:
-                    colD+="NULL ";
-                    break;
-                case ISNOTNULL:
-                    colD+="NOT NULL ";
-                    break;
-                case IFNOTEXISTS:
-                    colD+="IF NOT EXISTS ";
-                    break;
-                case IFEXISTS:
-                    colD+="IF EXISTS ";
-                    break;
-                case RESTRICT:
-                    colD+="RESTRICT ";
-                    break;
-                case CASCADE:
-                    colD+="CASCADE ";
-                    break;
-                case PRIMARYKEY:
-                    colD+="PRIMARY KEY ";
-                    break;
-                case UNIQUE:
-                    colD+="UNIQUE ";
-                    break;
-            }
+        std::string getColName(){
+            return colName;
         }
-        return colD;
-    }
+        void setColName(std::string cn){
+            //colN=true;
+            colName=cn;
+        }
+
+        std::string getColData(){
+            return colDataStr;
+        }
+        void setColData(std::string cd){
+            //colDa=true;
+            colDataStr=cd;
+        }
+
+        std::string printColDets(){
+            std::string colD = "";
+
+            bool colNameLook=true;
+            bool dataLook = false;
+            bool collateLook=false;
+            bool constraintLook=false;
+
+            int sz = tokVec.size();
+/*          if(colN){
+                colD+=colName+" ";
+            }
+            if(colDa){
+                colD+=colDataStr+" ";
+            } */
+            for(int i = 0; i<sz; i++){
+                switch(tokVec[i]){
+                    case STRINGNOQUOTES:
+                        if(colNameLook){
+                            colD += colName +" ";
+                            colNameLook=false;
+                            dataLook=true;
+                        }else if(dataLook){
+                            colD += colDataStr +" ";
+                            dataLook=false;
+                        }else if(collateLook){
+                            colD += collateStr+" ";;
+                            collateLook=false;
+                        }else if(constraintLook){
+                            colD += constraintStr+" ";
+                            constraintLook=false;
+                        }
+                        break;
+                    case STRING:
+                        if(colNameLook){
+                            colD += colName +" ";
+                            colNameLook=false;
+                            dataLook=true;
+                        }else if(dataLook){
+                            colD += colDataStr +" ";
+                            dataLook=false;
+                        }else if(collateLook){
+                            colD += collateStr+" ";;
+                            collateLook=false;
+                        }else if(constraintLook){
+                            colD += constraintStr+" ";
+                            constraintLook=false;
+                        }
+                        break;
+                    case COLLATE:
+                        colD+="COLLATE ";
+                        collateLook=true;
+                        break;
+                    case CONSTRAINT:
+                        colD+="CONSTRAINT ";
+                        constraintLook=true;
+                        break;
+                    case ISNULL:
+                        colD+="NULL ";
+                        break;
+                    case ISNOTNULL:
+                        colD+="NOT NULL ";
+                        break;
+                    case IFNOTEXISTS:
+                        colD+="IF NOT EXISTS ";
+                        break;
+                    case IFEXISTS:
+                        colD+="IF EXISTS ";
+                        break;
+                    case RESTRICT:
+                        colD+="RESTRICT ";
+                        break;
+                    case CASCADE:
+                        colD+="CASCADE ";
+                        break;
+                    case PRIMARYKEY:
+                        colD+="PRIMARY KEY ";
+                        break;
+                    case UNIQUE:
+                        colD+="UNIQUE ";
+                        break;
+                }
+            }
+            return colD;
+        }
+
         ~columnDets(){}
     };
 }
