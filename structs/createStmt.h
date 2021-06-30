@@ -237,6 +237,18 @@ namespace alp{
             }
         }
 
+        std::string getTableName(){
+            return tableName;
+        }
+        void setTableName(std::string tab){
+            int res = vecFind(strVec, tableName);
+            if(res!=-1){
+                strVec[res] = tab;
+                tableName = tab;
+            }
+            reconstructStmt();
+        }
+
         std::string printCreateStmt(){
             reconstructStmt();
             return stmt;

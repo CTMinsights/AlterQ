@@ -166,6 +166,12 @@ void test()
     //assert(inTest3.printInsertStmt()=="INSERT INTO tab (nums, title) VALUES (1051234, 'Banana') ;");//breaks cause int not done, same with float, etc
     
     //EDIT: INSERT TESTS
+    insertStmt inEditTest1 = insertStmt("INSERT INTO tab(nums, title) VALUES ('105', 'Banana');");
+    assert(inEditTest1.getTableName()=="tab");
+    inEditTest1.setTableName("diffname");
+    assert(inEditTest1.getTableName()=="diffname");
+    assert(inEditTest1.printInsertStmt()=="INSERT INTO diffname (nums, title) VALUES ('105', 'Banana') ;");
+    //Do the colName and data vectors
 
     //SELECT TESTS
     selectStmt selTest1 = selectStmt("SELECT * FROM tab;");
@@ -198,6 +204,18 @@ void test()
     assert(createTest4.printCreateStmt()=="CREATE TABLE tab (nums INT , names VARCHAR , circ circle ) ;");
 
     //EDIT: CREATE TESTS
+    createStmt createEditTest1 = createStmt("CREATE TABLE tab AS TABLE old_tab WITH NO DATA;");
+    assert(createEditTest1.getTableName()=="tab");
+    createEditTest1.setTableName("diffname");
+    assert(createEditTest1.getTableName()=="diffname");
+    assert(createEditTest1.printCreateStmt()=="CREATE TABLE diffname AS TABLE old_tab WITH NO DATA ;");
 
+    createStmt createEditTest2 = createStmt("CREATE TABLE tab (nums INT, names VARCHAR, circ circle);");
+    assert(createEditTest2.getTableName()=="tab");
+    createEditTest2.setTableName("diffname");
+    assert(createEditTest2.getTableName()=="diffname");
+    assert(createEditTest2.printCreateStmt()=="CREATE TABLE diffname (nums INT , names VARCHAR , circ circle ) ;");
+    //Do vec
+    
     cout<<"Success"<<endl;
 }
