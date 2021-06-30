@@ -208,6 +208,20 @@ namespace alp{
             reconstructStmt();
         }
         
+        std::vector<std::string> getColNames(){
+            return colNames;
+        }
+        void setColNames(std::vector<std::string> cn){
+            colNames=cn;
+        }
+
+        std::vector<std::string> getValues(){
+            return valuesVec;
+        }
+        void setValues(std::vector<std::string> cv){
+            valuesVec=cv;
+        }
+
         std::string printInsertStmt(){
             reconstructStmt();
             return stmt;

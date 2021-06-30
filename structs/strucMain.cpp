@@ -172,6 +172,16 @@ void test()
     assert(inEditTest1.getTableName()=="diffname");
     assert(inEditTest1.printInsertStmt()=="INSERT INTO diffname (nums, title) VALUES ('105', 'Banana') ;");
     //Do the colName and data vectors
+    vector<string> edVec1={"nums", "title"};
+    vector<string> edVec2={"'105'", "'Banana'"};
+    assert(inEditTest1.getColNames()==edVec1);
+    assert(inEditTest1.getValues()==edVec2);
+    vector<string> newVec1={"newNums", "newTitle", "thirdCol"};
+    inEditTest1.setColNames(newVec1);
+    vector<string> newVec2={"'999'", "'The banana'", "'idk'"};
+    inEditTest1.setValues(newVec2);
+    assert(inEditTest1.printInsertStmt()=="INSERT INTO diffname (newNums, newTitle, thirdCol) VALUES ('999', 'The banana', 'idk') ;");
+
 
     //SELECT TESTS
     selectStmt selTest1 = selectStmt("SELECT * FROM tab;");
