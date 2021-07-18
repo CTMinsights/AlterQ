@@ -133,16 +133,3 @@ void runTests(){
 
     cout<<"All tests passed"<<endl;
 }
-
-int main(void){
-    //string testStr = "test";//Change this to whatever you want to test
-    //vector<int> vec;
-    //vec = lexxer(testStr);//Use this on input from file
-
-    //runTests();//Run tests
-    test();
-    //lexxerCmd();//Use this on input from cmd line and to see details printed
-
-    
-    return 0;
-}

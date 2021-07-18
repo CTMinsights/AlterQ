@@ -45,7 +45,8 @@ void runTests();
 #define AST 120
 
 // Datatypes (datatype labels) https://www.postgresql.org/docs/current/datatype.html
-#define TEXT 312
+
+/* #define TEXT 312
 #define INT_T 313
 #define SMALLINT_T 314
 #define BIGINT_T 315
@@ -87,7 +88,7 @@ void runTests();
 #define UUID 352
 #define XML 353
 #define MACADDR8 354
-#define PGSNAP 355
+#define PGSNAP 355 */
 
 // Query Types/Keywords
 #define ALTER 10

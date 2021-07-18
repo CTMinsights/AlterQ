@@ -57,6 +57,10 @@ namespace alp{
             }
             bool tableLook=true;
             bool asLook=false;
+            columnDets tempCol;
+            std::vector<int> tempInt;
+            std::vector<std::string> tempStr;
+            bool parenOpen=false;
             for(int i = 0; i<sz-1; i++){
                 switch(tokVec[i]){
                     case CREATE:
@@ -113,6 +117,34 @@ namespace alp{
                         break;
                     case WITHNODATA:
                         withnodata=true;
+                        break;
+                    case OPENPAREN:
+                        tempInt.push_back(tokVec[i+1]);
+                        tempInt.push_back(tokVec[i+2]);
+                        tempStr.push_back(strVec[i+1]);
+                        tempStr.push_back(strVec[i+2]);
+                        i+=2;
+                        tempCol.colDets(tempInt, tempStr);
+                        colVec.push_back(tempCol);
+                        tempInt.clear();
+                        tempStr.clear();
+                        parenOpen=true;
+                        break;
+                    case COMMA:
+                        if(parenOpen){
+                            tempInt.push_back(tokVec[i+1]);
+                            tempInt.push_back(tokVec[i+2]);
+                            tempStr.push_back(strVec[i+1]);
+                            tempStr.push_back(strVec[i+2]);
+                            i+=2;
+                            tempCol.colDets(tempInt, tempStr);
+                            colVec.push_back(tempCol);
+                            tempInt.clear();
+                            tempStr.clear();
+                        }
+                        break;
+                    case CLOSEPAREN:
+                        parenOpen=false;
                         break;
                 }
             }
@@ -205,6 +237,25 @@ namespace alp{
             }
         }
 
+        std::string getTableName(){
+            return tableName;
+        }
+        void setTableName(std::string tab){
+            int res = vecFind(strVec, tableName);
+            if(res!=-1){
+                strVec[res] = tab;
+                tableName = tab;
+            }
+            reconstructStmt();
+        }
+
+        std::vector<columnDets> getColVec(){
+            return colVec;
+        }
+        void setColVec(std::vector<columnDets> cv){
+            colVec=cv;
+        }
+
         std::string printCreateStmt(){
             reconstructStmt();
             return stmt;
@@ -215,6 +266,11 @@ namespace alp{
             int sz = tokVec.size();
             bool tableLook=true;
             bool asLook=false;
+            columnDets tempCol;
+            std::vector<int> tempInt;
+            std::vector<std::string> tempStr;
+            bool parenOpen=false;
+            int x=0;
             for(int i = 0; i<sz-1; i++){
                 switch(tokVec[i]){
                     case CREATE:
@@ -269,6 +325,24 @@ namespace alp{
                         break;
                     case WITHNODATA:
                         newStmt+="WITH NO DATA ";
+                        break;
+                    case OPENPAREN:
+                        i+=2;
+                        newStmt+="("+colVec[x].printColDets();
+                        x++;
+                        parenOpen=true;
+                        break;
+                    case COMMA:
+                        newStmt+=", ";
+                        if(parenOpen){
+                            i+=2;
+                            newStmt+=colVec[x].printColDets();
+                            x++;
+                        }
+                        break;
+                    case CLOSEPAREN:
+                        newStmt+=") ";
+                        parenOpen=false;
                         break;
                 }
             }
