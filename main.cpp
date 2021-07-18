@@ -223,11 +223,8 @@ void test()
 int main ( )
 {
     test();
-    std::cout<<"test1"<<std::endl;
-    alterStmt altTest1 =alterStmt("ALTER TABLE IF EXISTS ONLY tab1 * RENAME COLUMN col1name TO col2name;");
-    assert(altTest1.printAlterStmt()=="ALTER TABLE IF EXISTS ONLY tab1 * RENAME COLUMN col1name TO col2name ;");
-    std::cout<<"test2"<<std::endl;
+
+    //Enter code here you want to use the parser with
+
     return 0;
 }
-
-//the puzzle palace
