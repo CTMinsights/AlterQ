@@ -6,3 +6,6 @@ aLex.tab.c
 aLex.tab.h
 
 aLex.y
+
+staticLibTest
+sharedLib
