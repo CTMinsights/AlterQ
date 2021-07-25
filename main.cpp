@@ -139,10 +139,10 @@ void test()
     assert(upEditTest1.printUpdateStmt()=="UPDATE ONLY diffname * AS tabby SET newCol = 'name2' WHERE newCol <> 'notName5' ;");
    
     //INSERT TESTS
-    insertStmt inTest1 = insertStmt("INSERT INTO tab(nums, title) VALUES ('105', 'Banana');");
-    assert(inTest1.printInsertStmt()=="INSERT INTO tab (nums, title) VALUES ('105', 'Banana') ;");
-    insertStmt inTest2 = insertStmt("INSERT INTO tab(nums, title) VALUES (105, 'Banana');");
-    assert(inTest2.printInsertStmt()=="INSERT INTO tab (nums, title) VALUES (105, 'Banana') ;");
+    insertStmt inTest1 = insertStmt("INSERT INTO tab(nums, title) VALUES ('1005', 'Banana');");
+    assert(inTest1.printInsertStmt()=="INSERT INTO tab (nums, title) VALUES ('1005', 'Banana') ;");
+    insertStmt inTest2 = insertStmt("INSERT INTO tab(nums, title) VALUES ('105', 'Banana');");
+    assert(inTest2.printInsertStmt()=="INSERT INTO tab (nums, title) VALUES ('105', 'Banana') ;");
     //insertStmt inTest3 = insertStmt("INSERT INTO tab(nums, title) VALUES (1051234, 'Banana');");
     //assert(inTest3.printInsertStmt()=="INSERT INTO tab (nums, title) VALUES (1051234, 'Banana') ;");//breaks cause int not done, same with float, etc
     
@@ -158,9 +158,9 @@ void test()
     assert(inEditTest1.getValues()==edVec2);
     vector<string> newVec1={"newNums", "newTitle", "thirdCol"};
     inEditTest1.setColNames(newVec1);
-    vector<string> newVec2={"'999'", "'The banana'", "'idk'"};
+    vector<string> newVec2={"'999999'", "'The banana'", "'idk'"};
     inEditTest1.setValues(newVec2);
-    assert(inEditTest1.printInsertStmt()=="INSERT INTO diffname (newNums, newTitle, thirdCol) VALUES ('999', 'The banana', 'idk') ;");
+    assert(inEditTest1.printInsertStmt()=="INSERT INTO diffname (newNums, newTitle, thirdCol) VALUES ('999999', 'The banana', 'idk') ;");
 
 
     //SELECT TESTS

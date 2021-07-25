@@ -1,4 +1,6 @@
-
+[$][0-9]*[.]?[0-9]*     return MONEY;  //example, not actually how we will parse money
+[0-9]+                  return (yyleng<=3 ? SMALLINT : yyleng<=8 ? INTEGER : BIGINT);//Check integer sizes (need to check for leading 0s)//Maybe change numbers to numbers. So do yylval=atoi(yytext); return NUM;think i need .y bison file for this
+[0-9]+[.][0-9]+         return (yyleng<=8 ? FLOAT : DOUBLE);//need to check for leading 0s
 "text"|"TEXT"                                   return TEXT;
 "int"|"integer"|"int4"|"INT"|"INTEGER"|"INT4"   return INT_T;
 "smallint"|"int2"|"SMALLINT"|"INT2"             return SMALLINT_T;
