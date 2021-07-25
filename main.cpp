@@ -6,7 +6,6 @@
 
 #include "alp.h"
 
-
 using namespace alp;
 using namespace std;
 
