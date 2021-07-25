@@ -5,4 +5,4 @@ lex aLex.l
 cd ../
 make
 ./prog
-make clean
+

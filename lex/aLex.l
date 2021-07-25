@@ -138,8 +138,8 @@
 "VALUES"            return VALUES;
 "TABLE"             return TABLE;
                     
-[0-9]+                  return (NUMBER);//Check integer sizes (need to check for leading 0s)//Maybe change numbers to numbers. So do yylval=atoi(yytext); return NUM;think i need .y bison file for this
-[0-9]+[.][0-9]+         return (NUMWDEC);//need to check for leading 0s
+[0-9]+                  return NUMBER;//Check integer sizes (need to check for leading 0s)//Maybe change numbers to numbers. So do yylval=atoi(yytext); return NUM;think i need .y bison file for this
+[0-9]+[.][0-9]+         return NUMWDEC;//need to check for leading 0s
 ['][a-zA-Z_ - 0-9]*[']  return (yyleng==2 ? NULLCHAR : yyleng==3 ? CHARACTER : STRING);//Check string sizes
 ["][a-zA-Z_ - 0-9]*["]  return (yyleng==2 ? NULLCHAR : yyleng==3 ? CHARACTER : STRING);//Check string sizes
 [0-1]?[0-9][/][0-3]?[0-9][/][0-9][0-9][0-9][0-9] return DATE; //prolly a better way to check for 4 numbers

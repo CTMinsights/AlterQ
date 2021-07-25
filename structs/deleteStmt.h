@@ -75,7 +75,11 @@ namespace alp{
                         where=true;
                         whereEq.left = strVec[i+1];
                         whereEq.sym = strVec[i+2];
-                        whereEq.right = strVec[i+3];
+                        if(tokVec[i+3]==NUMBER){
+                            whereEq.right = "'"+strVec[i+3]+"'";
+                        }else{
+                            whereEq.right = strVec[i+3];
+                        }
                         i+=3;
                         break;
                     case AST:
