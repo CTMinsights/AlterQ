@@ -74,7 +74,14 @@ namespace alp{
                             valuesVec.push_back(strVec[i]);
                         }
                         break;
-                    case SMALLINT://This fixes the stringifying numbers issue but a better way would be to just treat them all as strings like they are in strVec
+                    case NUMBER:
+                        if(parenOpen&&colLook){
+                            colNames.push_back(strVec[i]);
+                        }else if(parenOpen&&valLook){
+                            valuesVec.push_back(strVec[i]);
+                        }
+                        break;
+                    case NUMWDEC:
                         if(parenOpen&&colLook){
                             colNames.push_back(strVec[i]);
                         }else if(parenOpen&&valLook){
@@ -163,7 +170,14 @@ namespace alp{
                             valuesVec.push_back(strVec[i]);
                         }
                         break;
-                    case SMALLINT:
+                    case NUMBER:
+                        if(parenOpen&&colLook){
+                            colNames.push_back(strVec[i]);
+                        }else if(parenOpen&&valLook){
+                            valuesVec.push_back(strVec[i]);
+                        }
+                        break;
+                    case NUMWDEC:
                         if(parenOpen&&colLook){
                             colNames.push_back(strVec[i]);
                         }else if(parenOpen&&valLook){
@@ -267,7 +281,16 @@ namespace alp{
                             valLook=false;//gotta be a better way
                         }
                         break;
-                    case SMALLINT://Need to account for any type here :/ somehow
+                    case NUMBER://Need to account for any type here :/ somehow
+                        if(parenOpen&&colLook){
+                            newStmt+=printVec(colNames);
+                            colLook=false;//gotta be a better way
+                        }else if(parenOpen&&valLook){
+                            newStmt+=printVec(valuesVec);
+                            valLook=false;//gotta be a better way
+                        }
+                        break;
+                    case NUMWDEC:
                         if(parenOpen&&colLook){
                             newStmt+=printVec(colNames);
                             colLook=false;//gotta be a better way
