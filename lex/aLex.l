@@ -137,6 +137,8 @@
 "RESTRICT"          return RESTRICT;
 "VALUES"            return VALUES;
 "TABLE"             return TABLE;
+"ADD COLUMN"        return ADDCOL;
+"DROP COLUMN"       return DROPCOL;
                     
 [0-9]+                  return NUMBER;//Check integer sizes (need to check for leading 0s)//Maybe change numbers to numbers. So do yylval=atoi(yytext); return NUM;think i need .y bison file for this
 [0-9]+[.][0-9]+         return NUMWDEC;//need to check for leading 0s

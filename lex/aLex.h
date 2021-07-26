@@ -219,3 +219,5 @@ void runTests();
 #define TABLE 1038
 #define NUMBER 1039
 #define NUMWDEC 1040
+#define ADDCOL 1041
+#define DROPCOL 1042

@@ -60,6 +60,10 @@ void test()
     assert(altTest4.printAlterStmt()=="ALTER TABLE IF EXISTS tab1 SET SCHEMA newSchema ;");
     alterStmt altTest5 = alterStmt("ALTER TABLE IF EXISTS tab1 DETACH PARTITION newPart ;");
     assert(altTest5.printAlterStmt()=="ALTER TABLE IF EXISTS tab1 DETACH PARTITION newPart ;");
+    alterStmt altTest6 = alterStmt("ALTER TABLE tab1 ADD COLUMN col1 INT ;");
+    assert(altTest6.printAlterStmt()=="ALTER TABLE tab1 ADD COLUMN col1 INT ;");
+    alterStmt altTest7 = alterStmt("ALTER TABLE tab1 DROP COLUMN col1 ;");
+    assert(altTest7.printAlterStmt()=="ALTER TABLE tab1 DROP COLUMN col1 ;");
 
     //EDIT: ALTER TESTS
     alterStmt altEditTest1 =alterStmt("ALTER TABLE IF EXISTS ONLY tab1 * RENAME COLUMN col1name TO col2name;");
@@ -97,9 +101,9 @@ void test()
 
     //DELETE TESTS
     deleteStmt delTest1 = deleteStmt("DELETE FROM ONLY tab WHERE nums <> 101;");
-    assert(delTest1.printDeleteStmt()=="DELETE FROM ONLY tab WHERE nums <> '101' ;");
+    assert(delTest1.printDeleteStmt()=="DELETE FROM ONLY tab WHERE nums <> 101 ;");
     deleteStmt delTest2 = deleteStmt("DELETE FROM tab WHERE nums >= 1;");
-    assert(delTest2.printDeleteStmt()=="DELETE FROM tab WHERE nums >= '1' ;");
+    assert(delTest2.printDeleteStmt()=="DELETE FROM tab WHERE nums >= 1 ;");
     deleteStmt delTest3 = deleteStmt("DELETE FROM tab * WHERE names = 'alex' RETURNING *;");
     assert(delTest3.printDeleteStmt()=="DELETE FROM tab * WHERE names = 'alex' RETURNING * ;");
 
@@ -108,13 +112,13 @@ void test()
     assert(delEditTest1.getTableName()=="tab");
     delEditTest1.setTableName("diffname");
     assert(delEditTest1.getTableName()=="diffname");
-    assert(delEditTest1.getWhere().printEquation()=="nums <> '101'");
+    assert(delEditTest1.getWhere().printEquation()=="nums <> 101");
     delEditTest1.setWhereLeft("newNums");
     delEditTest1.setWhereSymbol(">=");
-    assert(delEditTest1.getWhere().printEquation()=="newNums >= '101'");
-    delEditTest1.setWhereRight("'0'");//This always needs quotes
-    assert(delEditTest1.getWhere().printEquation()=="newNums >= '0'");
-    assert(delEditTest1.printDeleteStmt()=="DELETE FROM ONLY diffname WHERE newNums >= '0' ;");
+    assert(delEditTest1.getWhere().printEquation()=="newNums >= 101");
+    delEditTest1.setWhereRight("0");//This always needs quotes
+    assert(delEditTest1.getWhere().printEquation()=="newNums >= 0");
+    assert(delEditTest1.printDeleteStmt()=="DELETE FROM ONLY diffname WHERE newNums >= 0 ;");
     
     //UPDATE TESTS
     updateStmt upTest1 = updateStmt("UPDATE ONLY tab1 * AS tabby SET col1 = 'name1' WHERE col1 = 'name5';");

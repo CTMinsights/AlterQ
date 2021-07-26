@@ -14,6 +14,7 @@ namespace alp{
         std::string stmt;
         std::string tableName;
         std::string colName;
+        std::string colType;
         std::string fromName;
         std::string toName;
         std::string constraintStr;
@@ -38,6 +39,7 @@ namespace alp{
             stmt = query;
             tableName = {};
             colName = {};
+            colType = {};
             fromName = {};
             toName = {};
             colDets= {};
@@ -140,8 +142,17 @@ namespace alp{
                     case ADD:
                         add=true;
                         break;
+                    case ADDCOL:
+                        colName = strVec[i+1];
+                        colType = strVec[i+2];
+                        i+=2;
+                        break;
                     case DROP:
                         drop=true;
+                        break;
+                    case DROPCOL:
+                        colName = strVec[i+1];
+                        i++;
                         break;
                     case AST:
                         ast = true;
@@ -155,6 +166,7 @@ namespace alp{
             stmt = query;
             tableName = {};
             colName = {};
+            colType = {};
             fromName = {};
             toName = {};
             colDets= {};
@@ -256,8 +268,17 @@ namespace alp{
                     case ADD:
                         add=true;
                         break;
+                    case ADDCOL:
+                        colName = strVec[i+1];
+                        colType = strVec[i+2];
+                        i+=2;
+                        break;
                     case DROP:
                         drop=true;
+                        break;
+                    case DROPCOL:
+                        colName = strVec[i+1];
+                        i++;
                         break;
                     case AST:
                         ast = true;
@@ -281,6 +302,13 @@ namespace alp{
                 tableName = tab;
             }
             reconstructStmt();
+        }
+
+        std::string getColType(){
+            return colType;
+        }
+        void setColType(std::string ct){
+            colType=ct;
         }
 
         std::string printAlterStmt(){
@@ -360,8 +388,17 @@ namespace alp{
                     case ADD:
                         newStmt+="ADD ";
                         break;
+                    case ADDCOL:
+                        newStmt+="ADD COLUMN ";
+                        newStmt+=colName+" "+colType+" ";
+                        i+=2;
+                        break;
                     case DROP:
                         newStmt+="DROP ";
+                        break;
+                    case DROPCOL:
+                        newStmt+="DROP COLUMN " + colName +" ";
+                        i++;
                         break;
                     case AST:
                         newStmt+="* ";
