@@ -22,7 +22,9 @@ namespace alp{
         std::string partitionStr;
         columnDets colDets;
         bool add;
+        bool addcol;
         bool drop;
+        bool dropcol;
         bool ifexists;
         bool ifnotexists;
         bool only;
@@ -46,6 +48,8 @@ namespace alp{
             constraintStr={};
             schemaStr = {};
             partitionStr={};
+            addcol=false;
+            dropcol=false;
             detach=false;
             partition=false;
             ifexists = false;
@@ -143,6 +147,7 @@ namespace alp{
                         add=true;
                         break;
                     case ADDCOL:
+                        addcol=true;
                         colName = strVec[i+1];
                         colType = strVec[i+2];
                         i+=2;
@@ -151,6 +156,7 @@ namespace alp{
                         drop=true;
                         break;
                     case DROPCOL:
+                        dropcol=true;
                         colName = strVec[i+1];
                         i++;
                         break;
@@ -173,6 +179,8 @@ namespace alp{
             constraintStr={};
             schemaStr={};
             partitionStr={};
+            addcol=false;
+            dropcol=false;
             detach=false;
             partition=false;
             ifexists = false;
@@ -269,6 +277,7 @@ namespace alp{
                         add=true;
                         break;
                     case ADDCOL:
+                        addcol=true;
                         colName = strVec[i+1];
                         colType = strVec[i+2];
                         i+=2;
@@ -277,6 +286,7 @@ namespace alp{
                         drop=true;
                         break;
                     case DROPCOL:
+                        dropcol=true;
                         colName = strVec[i+1];
                         i++;
                         break;
@@ -302,6 +312,13 @@ namespace alp{
                 tableName = tab;
             }
             reconstructStmt();
+        }
+
+        std::string getColName(){
+            return colName;
+        }
+        void setColName(std::string cn){
+            colName=cn;
         }
 
         std::string getColType(){
