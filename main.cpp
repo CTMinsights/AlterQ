@@ -121,8 +121,8 @@ void test()
     assert(delEditTest1.printDeleteStmt()=="DELETE FROM ONLY diffname WHERE newNums >= 0 ;");
     
     //UPDATE TESTS
-    updateStmt upTest1 = updateStmt("UPDATE ONLY tab1 * AS tabby SET col1 = 'name1' WHERE col1 = 'name5';");
-    assert(upTest1.printUpdateStmt()=="UPDATE ONLY tab1 * AS tabby SET col1 = 'name1' WHERE col1 = 'name5' ;");
+    updateStmt upTest1 = updateStmt("UPDATE ONLY tab1 * AS tabby SET col1 = 'name1' WHERE col1 = 'name5' RETURNING *;");
+    assert(upTest1.printUpdateStmt()=="UPDATE ONLY tab1 * AS tabby SET col1 = 'name1' WHERE col1 = 'name5' RETURNING * ;");
     
     //EDIT: UPDATE TESTS
     updateStmt upEditTest1 = updateStmt("UPDATE ONLY tab1 * AS tabby SET col1 = 'name1' WHERE col1 = 'name5';");
@@ -143,8 +143,8 @@ void test()
     assert(upEditTest1.printUpdateStmt()=="UPDATE ONLY diffname * AS tabby SET newCol = 'name2' WHERE newCol <> 'notName5' ;");
    
     //INSERT TESTS
-    insertStmt inTest1 = insertStmt("INSERT INTO tab(nums, title) VALUES ('1005', 'Banana');");
-    assert(inTest1.printInsertStmt()=="INSERT INTO tab (nums, title) VALUES ('1005', 'Banana') ;");
+    insertStmt inTest1 = insertStmt("INSERT INTO tab(nums, title) VALUES ('1005', 'Banana') RETURNING *;");
+    assert(inTest1.printInsertStmt()=="INSERT INTO tab (nums, title) VALUES ('1005', 'Banana') RETURNING * ;");
     insertStmt inTest2 = insertStmt("INSERT INTO tab(nums, title) VALUES ('105', 'Banana');");
     assert(inTest2.printInsertStmt()=="INSERT INTO tab (nums, title) VALUES ('105', 'Banana') ;");
     //insertStmt inTest3 = insertStmt("INSERT INTO tab(nums, title) VALUES (1051234, 'Banana');");
@@ -185,7 +185,8 @@ void test()
     assert(selEditTest1.getSelect()=="*");//Test select
     selEditTest1.setSelect("name");
     assert(selEditTest1.getSelect()=="name");
-    assert(selEditTest1.printSelectStmt()=="SELECT name FROM diffname ;");
+    selEditTest1.setOrderBy("name ASC");//Test setOrderBy
+    assert(selEditTest1.printSelectStmt()=="SELECT name FROM diffname ORDER BY name ASC ;");
 
     //CREATE TESTS
     createStmt createTest1 = createStmt("CREATE TABLE tab AS TABLE old_tab WITH NO DATA;");
