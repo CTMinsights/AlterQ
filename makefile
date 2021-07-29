@@ -1,13 +1,5 @@
-TARGET = prog
-
-$(TARGET): main.o lib.a
-	g++ $^ -o $@
-
-main.o: main.cpp
-	g++ -c $< -o $@
-
-lib.a: lib1.o lib2.o lib3.o
-	ar rcs $@ $^
+alp.so: lib1.o lib2.o lib3.o
+	g++ -shared -o sharedLib/alp.so $^
 
 lib1.o: lex/aLex.cpp
 	g++ -c -o $@ $<
@@ -19,4 +11,4 @@ lib3.o: lex/aLexxer.c
 	g++ -c -o $@ $<
 
 clean:
-	rm -f *.o *.a $(TARGET) test.txt
+	rm -f *.o sharedLib/*.so test.txt
