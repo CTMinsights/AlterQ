@@ -176,7 +176,9 @@ void test()
     assert(selTest3.printSelectStmt()=="SELECT * FROM distributors GROUP BY name ;");
     selectStmt selTest4 = selectStmt("SELECT name FROM distributors ORDER BY 5 LIMIT 10;");
     assert(selTest4.printSelectStmt()=="SELECT name FROM distributors ORDER BY 5 LIMIT 10 ;");
-    
+    selectStmt selTest5 = selectStmt("SELECT name FROM distributors limit 10 offset 0;");
+    cout<<selTest5.printSelectStmt()<<endl;
+    assert(selTest5.printSelectStmt()=="SELECT name FROM distributors LIMIT 10 OFFSET 0 ;");
     //EDIT: SELECT TESTS
     selectStmt selEditTest1 = selectStmt("SELECT * FROM tab;");
     assert(selEditTest1.getFrom()=="tab");//Test from

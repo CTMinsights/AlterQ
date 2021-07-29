@@ -26,7 +26,7 @@
 "INSERT INTO"       return INSERTINTO;
 "INTO"              return INTO;
 "LIKE"              return LIKE;
-"LIMIT"             return LIMIT;
+"LIMIT"|"limit"     return LIMIT;
 "MAX"               return MAX;
 "MIN"               return MIN;
 "ORDER BY"          return ORDERBY;
@@ -73,7 +73,7 @@
 "NOT EXISTS"        return NOTEXISTS;
 "IF EXISTS"         return IFEXISTS;
 "EXISTS"            return EXISTS;
-"OFFSET"            return OFFSET;
+"OFFSET"|"offset"   return OFFSET;
 "ROW"               return ROW;
 "ONLY"              return ONLY;
 "FIRST"             return FIRST;

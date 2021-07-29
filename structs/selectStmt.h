@@ -108,6 +108,11 @@ namespace alp{
                         orderByStr=strVec[i+1];
                         i++;
                         break;
+                    case OFFSET:
+                        offset=true;
+                        offsetStr = strVec[i+1];
+                        i++;
+                        break;
                     case WHERE:
                         where=true;
                         whereEq.left = strVec[i+1];
@@ -221,6 +226,11 @@ namespace alp{
                     case ORDERBY:
                         orderBy=true;
                         orderByStr=strVec[i+1];
+                        i++;
+                        break;
+                    case OFFSET:
+                        offset=true;
+                        offsetStr = strVec[i+1];
                         i++;
                         break;
                     case WHERE:
@@ -337,6 +347,10 @@ namespace alp{
                             i++;
                             break;
                         }
+                        i++;
+                        break;
+                    case OFFSET:
+                        newStmt+="OFFSET "+offsetStr+" ";
                         i++;
                         break;
                     case WHERE:
