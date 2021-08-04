@@ -6,7 +6,6 @@
 
 #include "alp.h"
 
-
 using namespace alp;
 using namespace std;
 
@@ -61,6 +60,10 @@ void test()
     assert(altTest4.printAlterStmt()=="ALTER TABLE IF EXISTS tab1 SET SCHEMA newSchema ;");
     alterStmt altTest5 = alterStmt("ALTER TABLE IF EXISTS tab1 DETACH PARTITION newPart ;");
     assert(altTest5.printAlterStmt()=="ALTER TABLE IF EXISTS tab1 DETACH PARTITION newPart ;");
+    alterStmt altTest6 = alterStmt("ALTER TABLE tab1 ADD COLUMN col1 INT ;");
+    assert(altTest6.printAlterStmt()=="ALTER TABLE tab1 ADD COLUMN col1 INT ;");
+    alterStmt altTest7 = alterStmt("ALTER TABLE tab1 DROP COLUMN col1 ;");
+    assert(altTest7.printAlterStmt()=="ALTER TABLE tab1 DROP COLUMN col1 ;");
 
     //EDIT: ALTER TESTS
     alterStmt altEditTest1 =alterStmt("ALTER TABLE IF EXISTS ONLY tab1 * RENAME COLUMN col1name TO col2name;");
@@ -113,13 +116,13 @@ void test()
     delEditTest1.setWhereLeft("newNums");
     delEditTest1.setWhereSymbol(">=");
     assert(delEditTest1.getWhere().printEquation()=="newNums >= 101");
-    delEditTest1.setWhereRight("0");
+    delEditTest1.setWhereRight("0");//This always needs quotes
     assert(delEditTest1.getWhere().printEquation()=="newNums >= 0");
     assert(delEditTest1.printDeleteStmt()=="DELETE FROM ONLY diffname WHERE newNums >= 0 ;");
     
     //UPDATE TESTS
-    updateStmt upTest1 = updateStmt("UPDATE ONLY tab1 * AS tabby SET col1 = 'name1' WHERE col1 = 'name5';");
-    assert(upTest1.printUpdateStmt()=="UPDATE ONLY tab1 * AS tabby SET col1 = 'name1' WHERE col1 = 'name5' ;");
+    updateStmt upTest1 = updateStmt("UPDATE ONLY tab1 * AS tabby SET col1 = 'name1' WHERE col1 = 'name5' RETURNING *;");
+    assert(upTest1.printUpdateStmt()=="UPDATE ONLY tab1 * AS tabby SET col1 = 'name1' WHERE col1 = 'name5' RETURNING * ;");
     
     //EDIT: UPDATE TESTS
     updateStmt upEditTest1 = updateStmt("UPDATE ONLY tab1 * AS tabby SET col1 = 'name1' WHERE col1 = 'name5';");
@@ -140,10 +143,10 @@ void test()
     assert(upEditTest1.printUpdateStmt()=="UPDATE ONLY diffname * AS tabby SET newCol = 'name2' WHERE newCol <> 'notName5' ;");
    
     //INSERT TESTS
-    insertStmt inTest1 = insertStmt("INSERT INTO tab(nums, title) VALUES ('105', 'Banana');");
-    assert(inTest1.printInsertStmt()=="INSERT INTO tab (nums, title) VALUES ('105', 'Banana') ;");
-    insertStmt inTest2 = insertStmt("INSERT INTO tab(nums, title) VALUES (105, 'Banana');");
-    assert(inTest2.printInsertStmt()=="INSERT INTO tab (nums, title) VALUES (105, 'Banana') ;");
+    insertStmt inTest1 = insertStmt("INSERT INTO tab(nums, title) VALUES ('1005', 'Banana') RETURNING *;");
+    assert(inTest1.printInsertStmt()=="INSERT INTO tab (nums, title) VALUES ('1005', 'Banana') RETURNING * ;");
+    insertStmt inTest2 = insertStmt("INSERT INTO tab(nums, title) VALUES ('105', 'Banana');");
+    assert(inTest2.printInsertStmt()=="INSERT INTO tab (nums, title) VALUES ('105', 'Banana') ;");
     //insertStmt inTest3 = insertStmt("INSERT INTO tab(nums, title) VALUES (1051234, 'Banana');");
     //assert(inTest3.printInsertStmt()=="INSERT INTO tab (nums, title) VALUES (1051234, 'Banana') ;");//breaks cause int not done, same with float, etc
     
@@ -159,9 +162,9 @@ void test()
     assert(inEditTest1.getValues()==edVec2);
     vector<string> newVec1={"newNums", "newTitle", "thirdCol"};
     inEditTest1.setColNames(newVec1);
-    vector<string> newVec2={"'999'", "'The banana'", "'idk'"};
+    vector<string> newVec2={"'999999'", "'The banana'", "'idk'"};
     inEditTest1.setValues(newVec2);
-    assert(inEditTest1.printInsertStmt()=="INSERT INTO diffname (newNums, newTitle, thirdCol) VALUES ('999', 'The banana', 'idk') ;");
+    assert(inEditTest1.printInsertStmt()=="INSERT INTO diffname (newNums, newTitle, thirdCol) VALUES ('999999', 'The banana', 'idk') ;");
 
 
     //SELECT TESTS
@@ -173,7 +176,9 @@ void test()
     assert(selTest3.printSelectStmt()=="SELECT * FROM distributors GROUP BY name ;");
     selectStmt selTest4 = selectStmt("SELECT name FROM distributors ORDER BY 5 LIMIT 10;");
     assert(selTest4.printSelectStmt()=="SELECT name FROM distributors ORDER BY 5 LIMIT 10 ;");
-    
+    selectStmt selTest5 = selectStmt("SELECT name FROM distributors limit 10 offset 0;");
+    cout<<selTest5.printSelectStmt()<<endl;
+    assert(selTest5.printSelectStmt()=="SELECT name FROM distributors LIMIT 10 OFFSET 0 ;");
     //EDIT: SELECT TESTS
     selectStmt selEditTest1 = selectStmt("SELECT * FROM tab;");
     assert(selEditTest1.getFrom()=="tab");//Test from
@@ -182,7 +187,8 @@ void test()
     assert(selEditTest1.getSelect()=="*");//Test select
     selEditTest1.setSelect("name");
     assert(selEditTest1.getSelect()=="name");
-    assert(selEditTest1.printSelectStmt()=="SELECT name FROM diffname ;");
+    selEditTest1.setOrderBy("name ASC");//Test setOrderBy
+    assert(selEditTest1.printSelectStmt()=="SELECT name FROM diffname ORDER BY name ASC ;");
 
     //CREATE TESTS
     createStmt createTest1 = createStmt("CREATE TABLE tab AS TABLE old_tab WITH NO DATA;");
