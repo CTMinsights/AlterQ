@@ -108,6 +108,11 @@ namespace alp{
                         orderByStr=strVec[i+1];
                         i++;
                         break;
+                    case OFFSET:
+                        offset=true;
+                        offsetStr = strVec[i+1];
+                        i++;
+                        break;
                     case WHERE:
                         where=true;
                         whereEq.left = strVec[i+1];
@@ -223,6 +228,11 @@ namespace alp{
                         orderByStr=strVec[i+1];
                         i++;
                         break;
+                    case OFFSET:
+                        offset=true;
+                        offsetStr = strVec[i+1];
+                        i++;
+                        break;
                     case WHERE:
                         where=true;
                         whereEq.left = strVec[i+1];
@@ -279,6 +289,11 @@ namespace alp{
             reconstructStmt();
             return stmt;
         }
+        void setOrderBy(std::string ord){
+            orderBy=true;
+            orderByStr=ord;
+
+        }
 
         void reconstructStmt(){
             std::string newStmt = "";
@@ -312,6 +327,10 @@ namespace alp{
                         break;
                     case FROM://change to from item stuff
                         newStmt+="FROM "+fromStr+" ";
+                        if(orderBy){
+                            newStmt+="ORDER BY "+orderByStr+" ";
+                            orderBy=false;
+                        }
                         i++;
                         break;
                     case GROUPBY://change to grouping element stuff
@@ -323,7 +342,15 @@ namespace alp{
                         i++;
                         break;
                     case ORDERBY:
-                        newStmt+="ORDER BY "+orderByStr+" ";
+                        if(orderBy){
+                            newStmt+="ORDER BY "+orderByStr+" ";
+                            i++;
+                            break;
+                        }
+                        i++;
+                        break;
+                    case OFFSET:
+                        newStmt+="OFFSET "+offsetStr+" ";
                         i++;
                         break;
                     case WHERE:

@@ -23,9 +23,9 @@ namespace alp{
         std::vector<std::string> strVec;
 
         Equation Equat(std::vector<int> tVec, std::vector<std::string> sVec){
+            right = sVec[2];
             sym = sVec[1];
             left = sVec[0];
-            right = sVec[2];
             return *this;
         }
 

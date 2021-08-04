@@ -14,6 +14,7 @@ namespace alp{
         std::string stmt;
         std::string tableName;
         std::string colName;
+        std::string colType;
         std::string fromName;
         std::string toName;
         std::string constraintStr;
@@ -21,7 +22,9 @@ namespace alp{
         std::string partitionStr;
         columnDets colDets;
         bool add;
+        bool addcol;
         bool drop;
+        bool dropcol;
         bool ifexists;
         bool ifnotexists;
         bool only;
@@ -38,12 +41,15 @@ namespace alp{
             stmt = query;
             tableName = {};
             colName = {};
+            colType = {};
             fromName = {};
             toName = {};
             colDets= {};
             constraintStr={};
             schemaStr = {};
             partitionStr={};
+            addcol=false;
+            dropcol=false;
             detach=false;
             partition=false;
             ifexists = false;
@@ -140,8 +146,19 @@ namespace alp{
                     case ADD:
                         add=true;
                         break;
+                    case ADDCOL:
+                        addcol=true;
+                        colName = strVec[i+1];
+                        colType = strVec[i+2];
+                        i+=2;
+                        break;
                     case DROP:
                         drop=true;
+                        break;
+                    case DROPCOL:
+                        dropcol=true;
+                        colName = strVec[i+1];
+                        i++;
                         break;
                     case AST:
                         ast = true;
@@ -155,12 +172,15 @@ namespace alp{
             stmt = query;
             tableName = {};
             colName = {};
+            colType = {};
             fromName = {};
             toName = {};
             colDets= {};
             constraintStr={};
             schemaStr={};
             partitionStr={};
+            addcol=false;
+            dropcol=false;
             detach=false;
             partition=false;
             ifexists = false;
@@ -256,8 +276,19 @@ namespace alp{
                     case ADD:
                         add=true;
                         break;
+                    case ADDCOL:
+                        addcol=true;
+                        colName = strVec[i+1];
+                        colType = strVec[i+2];
+                        i+=2;
+                        break;
                     case DROP:
                         drop=true;
+                        break;
+                    case DROPCOL:
+                        dropcol=true;
+                        colName = strVec[i+1];
+                        i++;
                         break;
                     case AST:
                         ast = true;
@@ -281,6 +312,20 @@ namespace alp{
                 tableName = tab;
             }
             reconstructStmt();
+        }
+
+        std::string getColName(){
+            return colName;
+        }
+        void setColName(std::string cn){
+            colName=cn;
+        }
+
+        std::string getColType(){
+            return colType;
+        }
+        void setColType(std::string ct){
+            colType=ct;
         }
 
         std::string printAlterStmt(){
@@ -360,8 +405,17 @@ namespace alp{
                     case ADD:
                         newStmt+="ADD ";
                         break;
+                    case ADDCOL:
+                        newStmt+="ADD COLUMN ";
+                        newStmt+=colName+" "+colType+" ";
+                        i+=2;
+                        break;
                     case DROP:
                         newStmt+="DROP ";
+                        break;
+                    case DROPCOL:
+                        newStmt+="DROP COLUMN " + colName +" ";
+                        i++;
                         break;
                     case AST:
                         newStmt+="* ";

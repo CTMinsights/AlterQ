@@ -1,3 +1,0 @@
-/mnt/c/Users/kubec/Documents/MyParser/DBI-SqlParser/src/build/CMakeFiles/rebuild_cache.dir
-/mnt/c/Users/kubec/Documents/MyParser/DBI-SqlParser/src/build/CMakeFiles/edit_cache.dir
-/mnt/c/Users/kubec/Documents/MyParser/DBI-SqlParser/src/build/CMakeFiles/app.dir

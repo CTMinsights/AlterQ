@@ -217,3 +217,7 @@ void runTests();
 #define DETACH 1036
 #define RETURNINGSTAR 1037
 #define TABLE 1038
+#define NUMBER 1039
+#define NUMWDEC 1040
+#define ADDCOL 1041
+#define DROPCOL 1042
