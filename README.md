@@ -18,7 +18,7 @@ You only need to run step 2 when you change the aLex.l or aLex.h file (but it do
     
 ## License
 
-ALP is licensed as open source after the GCLv2 License which is declared in the LICENSE file of this project.
+ALP is licensed as open source after the MIT License which is declared in the LICENSE file of this project.
 
 ## Contributors
 
