@@ -30,3 +30,4 @@ AlterQ is licensed as open source after the MIT License which is declared in the
 Anyone is welcome to contribute to this project. Issues and things that need work can be found in the documentation/Statements folder. 
 Information on how to use the library tools can be found in the documentation/UsageDoc document.
 Feel free to ask any questions or bring any issues to the communities attention in the discussion tab.
+
